@@ -18,16 +18,15 @@ end
 always @(firstOperand, secondOperand, aluControlInput, shamt)
 begin
 	case(aluControlInput)
-		4'b0000: aluResult = firstOperand & secondOperand;
-		4'b0001: aluResult = firstOperand | secondOperand;
-		4'b0010: aluResult = firstOperand + secondOperand;
-		4'b0011: aluResult = secondOperand << shamt;
-		4'b0100: aluResult = secondOperand >> shamt;
-		4'b0110: aluResult = firstOperand - secondOperand;
-		4'b0111: aluResult = firstOperand < secondOperand;
-		4'b1011: aluResult = $unsigned(firstOperand) < $unsigned(secondOperand);
-		4'b1100: aluResult = ~ (firstOperand | secondOperand);
-		default: $display("ERROR in ALU Select");
+		4'b0000: aluResult = firstOperand & secondOperand; // and
+		4'b0001: aluResult = firstOperand | secondOperand; // or
+		4'b0010: aluResult = firstOperand + secondOperand; // add
+		4'b0011: aluResult = secondOperand << shamt; // sll
+		4'b0100: aluResult = secondOperand >> shamt; // srl
+		4'b0110: aluResult = firstOperand - secondOperand; // sub
+		4'b0111: aluResult = firstOperand < secondOperand; // slt
+		4'b1011: aluResult = $unsigned(firstOperand) < $unsigned(secondOperand); // sltu
+		default: $display("ERROR in ALU Select"); // undefined operation
 	endcase
 end
 
