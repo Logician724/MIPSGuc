@@ -5,7 +5,8 @@ module ID_EX_Reg(input clk,
                  input [31:0] in_read_data1,
                  input [31:0] in_read_data2,
                  input [31:0] in_new_pc_value,
-                 input in_RegDst, in_RegWrite, in_ALUSrc, in_MemWrite, in_MemRead, in_MemToReg, in_PCSrc,
+                 input in_RegDst, in_RegWrite, in_ALUSrc, in_MemWrite, in_MemRead, in_MemToReg,
+                 input [1:0] in_load_mode,
                  input [2:0] in_ALUOp,
                  output reg [4:0] instr_bits_15_11,
                  output reg [4:0] instr_bits_20_16,
@@ -13,7 +14,8 @@ module ID_EX_Reg(input clk,
                  output reg [31:0] read_data1,
                  output reg [31:0] read_data2,
                  output reg [31:0] new_pc_value,
-                 output reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, PCSrc,
+                 output reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, 
+                 output reg [1:0] load_mode,
                  output reg [2:0] ALUOp);
 
 always @(posedge clk)
@@ -31,6 +33,7 @@ begin
   MemWrite <= in_MemWrite;
   MemRead <= in_MemRead;
   MemToReg <= in_MemToReg;
-  PCSrc <= in_PCSrc;
+  load_mode <= in_load_mode;
 end
+
 endmodule

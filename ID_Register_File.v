@@ -1,10 +1,12 @@
 // extended_bits refer to the ouput of the extender
-module ID_Register_File(clk, 
+module ID_Register_File(// Input
+                        clk, 
                         instruction, 
                         write_data, 
                         write_register, 
                         RegWrite,
                         load_mode,
+                        // Output
                         read_data1, 
                         read_data2, 
                         extended_bits);
