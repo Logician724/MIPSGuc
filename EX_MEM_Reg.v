@@ -1,17 +1,17 @@
-module EX_MEM_Reg (clk, WB_in, M_in, pc_in, zero_in, aluResult_in, rt_in, writebackDestination_in,
-	WB_out, M_out, pc_out, zero_out, aluResult_out, rt_out, writebackDestination_out);
+module EX_MEM_Reg (clk, RegWrite_in, MemWrite_in, MemRead_in, MemToReg_in, pc_in, 
+	zero_in, aluResult_in, rt_in, writebackDestination_in, load_mode_in,
+	RegWrite_out, MemWrite_out, MemRead_out, MemToReg_out, pc_out,
+	zero_out, aluResult_out, rt_out, writebackDestination_out, load_mode_out);
 
-input clk, zero_in;
+input clk, zero_in, RegWrite_in, MemWrite_in, MemRead_in, MemToReg_in;
+input [1:0] load_mode_in;
 input [4:0] writebackDestination_in;
 input [31:0] aluResult_in, rt_in, pc_in;
-// TODO define what WB_in and M_in are and how many bits they take
-input WB_in, M_in;
 
-output reg zero_out;
+output reg zero_out, RegWrite_out, MemWrite_out, MemRead_out, MemToReg_out;
+output reg [1:0] load_mode_out;
 output reg [4:0] writebackDestination_out;
 output reg [31:0] aluResult_out, rt_out, pc_out;
-// TODO define what WB_out and M_out are and how many bits they take
-output reg WB_out, M_out;
 
 always @(posedge clk)
 begin
@@ -21,9 +21,13 @@ begin
 	rt_out <= rt_in;
 	pc_out <= pc_in;
 	
-	// TODO define what WB_out and M_out are and how many bits they take
-	WB_out <= WB_in;
-	M_out <= M_in;
+	// control signals passed from decode stage to mem stage
+	RegWrite_out <= RegWrite_in;
+	MemWrite_out <= MemWrite_in;
+	MemRead_out <= MemRead_in;
+	MemToReg_out <= MemToReg_in;
+	load_mode_out <= load_mode_in;
+
 end
 
 endmodule
