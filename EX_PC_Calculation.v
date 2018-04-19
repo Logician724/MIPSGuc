@@ -1,7 +1,7 @@
 module EX_PC_Calculation(PC_in, offset, PC_out);
 
 input [31:0] PC_in;
-input [15:0] offset;
+input [31:0] offset;
 
 output [31:0] PC_out;
 
