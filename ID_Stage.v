@@ -5,17 +5,23 @@ module ID_Stage(input clk,
                 input [1:0] in_load_mode,
                 input [31:0] instruction,
                 input [31:0] in_new_pc_value,
-                output reg [4:0] instr_bits_15_11,
-                output reg [4:0] instr_bits_20_16,
-                output reg [31:0] extended_bits,
-                output reg [31:0] read_data1,
-                output reg [31:0] read_data2,
-                output reg [31:0] new_pc_value,
-                output reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, Branch,
-                output reg [1:0] load_mode,
-                output reg [2:0] ALUOp);
+                output [4:0] instr_bits_15_11,
+                output [4:0] instr_bits_20_16,
+                output [31:0] extended_bits,
+                output [31:0] read_data1,
+                output [31:0] read_data2,
+                output [31:0] new_pc_value,
+                output RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, Branch,
+                output [1:0] load_mode,
+                output [2:0] ALUOp);
 
 
+wire [31:0] extendedBitsFromFile;
+wire [31:0] read_data1_FromFile;
+wire [31:0] read_data2_FromFile;
+wire RegDstFromCtrl, RegWriteFromCtrl, ALUSrcFromCtrl, MemWriteFromCtrl, MemReadFromCtrl, MemToRegFromCtrl, BranchFromCtrl; 
+wire [1:0] load_modeFromCtrl;
+wire [2:0] ALUOpFromCtrl;
 
 ID_EX_Reg StageRegister(// INPUT
                         clk, 
@@ -51,10 +57,6 @@ ID_EX_Reg StageRegister(// INPUT
                         load_mode,
                         ALUOp);
 
-wire [31:0] extendedBitsFromFile;
-wire [31:0] read_data1_FromFile;
-wire [31:0] read_data2_FromFile;
-
 ID_Register_File Registers(// INPUT
                            clk, 
                            instruction, 
@@ -67,9 +69,6 @@ ID_Register_File Registers(// INPUT
                            read_data1_FromFile, 
                            read_data2_FromFile );
 
-wire RegDstFromCtrl, RegWriteFromCtrl, ALUSrcFromCtrl, MemWriteFromCtrl, MemReadFromCtrl, MemToRegFromCtrl, BranchFromCtrl; 
-wire [1:0] load_modeFromCtrl;
-wire [2:0] ALUOpFromCtrl;
 
 ID_Control_Unit Control(instruction[31:26],
                         // OUTPUT
