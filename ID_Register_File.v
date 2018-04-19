@@ -9,12 +9,15 @@ module ID_Register_File(clk,
                         read_data2, 
                         extended_bits);
 
+// INPUT 
 input clk;
 input [31:0] instruction;
 input [31:0] write_data;
 input [5:0] write_register;
 input [1:0] load_mode;
 input RegWrite;
+
+// OUTPUT
 output reg [31:0] read_data1;
 output reg [31:0] read_data2;
 output reg [31:0] extended_bits;
