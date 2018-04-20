@@ -1,4 +1,5 @@
 module ID_Control_Unit(OP_CODE, 
+                       // Outputs
                        RegDst, 
                        RegWrite,
                        ALUSrc,
@@ -6,10 +7,12 @@ module ID_Control_Unit(OP_CODE,
                        MemWrite,
                        MemRead,
                        MemToReg,
-                       PCSrc);
+                       Branch,
+                       load_mode);
 
 input [5:0] OP_CODE;
-output reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, PCSrc;
+output reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, Branch;
+output reg [1:0] load_mode;
 output reg [2:0] ALUOp;
 
 always @(OP_CODE)
@@ -20,7 +23,8 @@ begin
   MemWrite <= 0;
   MemRead <= 0;
   MemToReg <= 0;
-  PCSrc <= 0;
+  load_mode <= 2'b00;
+  Branch <= 0;
 
   case(OP_CODE)
     // R-Type
@@ -37,13 +41,31 @@ begin
           ALUOp <= 3'b000;
         end
     // LW, LH, LHU
-    6'b100_111, 6'b100_001, 6'b100_101:
+    6'b100_111:
         begin
           RegDst <= 0;
           ALUSrc <= 1;
           ALUOp <= 3'b000;
           MemRead <= 1;
           MemToReg <= 1;
+        end
+    6'b100_001:
+        begin
+          RegDst <= 0;
+          ALUSrc <= 1;
+          ALUOp <= 3'b000;
+          MemRead <= 1;
+          MemToReg <= 1;
+          load_mode <= 2'b01;
+        end
+    6'b100_101:
+        begin
+          RegDst <= 0;
+          ALUSrc <= 1;
+          ALUOp <= 3'b000;
+          MemRead <= 1;
+          MemToReg <= 1;
+          load_mode <= 2'b10;
         end
     // SW
     6'b101_011:
@@ -58,7 +80,7 @@ begin
         begin
           RegWrite <= 0;
           ALUOp <= 3'b001;
-          PCSrc <= 1;
+          Branch <= 1;
         end
     // AND-immediate
     6'b001_100:
