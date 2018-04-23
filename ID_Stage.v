@@ -1,10 +1,11 @@
 module ID_Stage(input clk,
-                input [5:0] write_register,
-                input [31:0] write_data,
-                input in_RegWrite,
-                input [1:0] in_load_mode,
-                input [31:0] instruction,
-                input [31:0] in_new_pc_value,
+                input [5:0] delay_write_register,
+                input [31:0] delay_write_data,
+                input delay_in_RegWrite,
+                input [1:0] delay_in_load_mode,
+                input [31:0] delay_instruction,
+                input [31:0] delay_in_new_pc_value,
+                input [31:0] register_input,
                 output [4:0] instr_bits_15_11,
                 output [4:0] instr_bits_20_16,
                 output [31:0] extended_bits,
@@ -22,6 +23,19 @@ wire [31:0] read_data2_FromFile;
 wire RegDstFromCtrl, RegWriteFromCtrl, ALUSrcFromCtrl, MemWriteFromCtrl, MemReadFromCtrl, MemToRegFromCtrl, BranchFromCtrl; 
 wire [1:0] load_modeFromCtrl;
 wire [2:0] ALUOpFromCtrl;
+
+// delay variables
+reg [5:0] write_register;
+reg [31:0] write_data, instruction, in_new_pc_value, register_input;
+reg in_RegWrite;
+reg [1:0] in_load_mode;
+
+always @(delay_in_load_mode) #5 in_load_mode = delay_in_load_mode;
+always @(delay_in_new_pc_value) #5 in_new_pc_value = delay_in_new_pc_value;
+always @(delay_in_RegWrite) #5 in_RegWrite = delay_in_RegWrite;
+always @(delay_instruction) #5 instruction = delay_instruction;
+always @(delay_write_data) #5 write_data = delay_write_data;
+always @(delay_write_register) #5 write_register = delay_write_register;
 
 ID_EX_Reg StageRegister(// INPUT
                         clk, 
@@ -64,6 +78,7 @@ ID_Register_File Registers(// INPUT
                            write_register, 
                            in_RegWrite, 
                            in_load_mode,
+                           register_input, 
                            // OUTPUT
                            extendedBitsFromFile, 
                            read_data1_FromFile, 
