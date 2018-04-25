@@ -37,6 +37,7 @@ always@(mem_read,mem_write,address,write_data)begin
             ram[address + 1]
             };
         default: $display("Error in MEM_RAM");
+        endcase
     end
         
     if(mem_write)begin
@@ -46,7 +47,6 @@ always@(mem_read,mem_write,address,write_data)begin
         ram[address+2],
         ram[address+3]} = write_data;
     end
-
 end
 
 
