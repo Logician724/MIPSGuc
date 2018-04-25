@@ -1,4 +1,4 @@
-module MEM_RAM(
+module MEM_Data_Memory(
     read_data,
     mem_write,
     mem_read,
@@ -36,7 +36,7 @@ always@(mem_read,mem_write,address,write_data)begin
             ram[address],
             ram[address + 1]
             };
-        default: $display("Error in MEM_RAM");
+        default: $display("Error in MEM_Data_Memory");
         endcase
     end
         
