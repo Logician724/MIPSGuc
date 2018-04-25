@@ -15,7 +15,7 @@ output reg [31:0] read_data;
 reg [4294967296:0] ram [7:0];
 
 always@(mem_read,mem_write,address,write_data)begin
-    if(mem_read && load_mode == 2'b00)begin
+    if(mem_read)begin
         case(load_mode)
         2'b00: 
             read_data = {
