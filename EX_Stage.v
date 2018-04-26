@@ -1,21 +1,30 @@
-module EX_Stage(clk, in_RegDst, in_RegWrite, in_ALUSrc, in_MemWrite, in_MemRead, in_MemToReg,
-in_ALUOp, in_instr_bits_15_11, in_instr_bits_20_16, in_extended_bits, in_read_data1,
-in_read_data2, in_new_pc_value, in_load_mode,
-zero_out, RegWrite_out, MemWrite_out, MemRead_out, MemToReg_out,load_mode_out,
-writebackDestination_out, aluResult_out, rt_out, pc_out);
-
-// inputs to the stage
-input clk, in_RegDst, in_RegWrite, in_ALUSrc, in_MemWrite, in_MemRead, in_MemToReg;
-input [1:0] in_load_mode;
-input [2:0] in_ALUOp;
-input [4:0] in_instr_bits_15_11, in_instr_bits_20_16;
-input [31:0] in_extended_bits, in_read_data1, in_read_data2, in_new_pc_value;
-
-// outputs from the stage
-output zero_out, RegWrite_out, MemWrite_out, MemRead_out, MemToReg_out;
-output [1:0] load_mode_out;
-output [4:0] writebackDestination_out;
-output [31:0] aluResult_out, rt_out, pc_out;
+module EX_Stage(
+	input clk,
+	input in_RegDst,
+	input in_RegWrite,
+	input in_ALUSrc,
+	input in_MemWrite,
+	input in_MemRead,
+	input in_MemToReg,
+	input [2:0] in_ALUOp,
+	input [4:0] in_instr_bits_15_11,
+	input [4:0] in_instr_bits_20_16,
+	input [31:0] in_extended_bits,
+	input [31:0] in_read_data1,
+	input [31:0] in_read_data2,
+	input [31:0] in_new_pc_value,
+	input [1:0] in_load_mode,
+	output zero_out,
+	output RegWrite_out,
+	output MemWrite_out,
+	output MemRead_out,
+	output MemToReg_out,
+	output [1:0] load_mode_out,
+	output [4:0] writebackDestination_out,
+	output [31:0] aluResult_out,
+	output [31:0] rt_out,
+	output [31:0] pc_out
+);
 
 // delay variables
 reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg;
