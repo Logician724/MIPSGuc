@@ -4,6 +4,7 @@ module MEM_Stage(
      mem_to_reg,
      reg_write_out,
      address_out,
+     write_back_destination_out,
      clk,
      in_mem_to_reg,
      in_address,
@@ -13,7 +14,8 @@ module MEM_Stage(
      in_mem_read,
      in_load_mode,
      in_zero,
-     in_branch
+     in_branch,
+     in_write_back_destination
 );
 input clk;
 input in_mem_read;
@@ -23,6 +25,7 @@ input in_mem_to_reg;
 input in_zero;
 input in_branch;
 input [1:0] in_load_mode;
+input [4:0] in_write_back_destination;
 output reg_write_out;
 output pc_src;
 output [31:0] read_data, address_out;
@@ -31,7 +34,9 @@ input [31:0] in_address;
 input [31:0] in_write_data;
 reg mem_read, mem_write, reg_write, branch, zero;
 reg [1:0] load_mode;
+reg [4:0] write_back_destination;
 reg [31:0] address, write_data;
+output [4:0] write_back_destination_out;
 
 
 always@(in_write_data) #5 write_data = in_write_data ;
@@ -43,6 +48,8 @@ always@(in_reg_write) #5 reg_write = in_reg_write;
 always@(in_mem_to_reg) #5 mem_to_reg = in_mem_to_reg;
 always@(in_branch) #5 branch = in_branch;
 always@(in_zero) #5 zero = in_zero;
+always@(in_write_back_destination) #5 write_back_destination = in_write_back_destination;
+
 wire [31:0] read_memory_out;
 
 and(pc_src,zero,branch);
@@ -57,10 +64,12 @@ MEM_Data_Memory mem_ram
     );
 
 MEM_WB_Reg mem_wb_reg
-    (reg_write_out,
+    (write_back_destination_out,
+    reg_write_out,
     read_data,
     address_out,
     clk,
+    write_back_destination_in,
     reg_write,
     read_memory_out,
     address
