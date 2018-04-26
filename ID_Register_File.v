@@ -45,7 +45,7 @@ end
 always @(posedge clk)
 begin
   if(RegWrite && write_register != 5'b00_000) begin
-    2'b00 : registers[write_register] = write_data;
+    registers[write_register] = write_data;
   end
 end
 
