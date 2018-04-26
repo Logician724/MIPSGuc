@@ -3,7 +3,6 @@ module MIPS(
 );
 
 // --- IF Stage --- //
-wire [31:0] MEM_IF_BR_NEXT_INS_ADR;
 wire MEM_IF_MEM_WRITE;
 wire [31:0] IF_ID_NEXT_INS_ADR;
 wire [31:0] IF_ID_CUR_INS;
@@ -11,7 +10,7 @@ wire [31:0] IF_ID_CUR_INS;
 IF_Stage IF_Stage_Module(
     CLK,
     IF_ID_NEXT_INS_ADR,
-    MEM_IF_BR_NEXT_INS_ADR,
+    EX_IF_pc_out,
     MEM_IF_MEM_WRITE,
     IF_ID_NEXT_INS_ADR,
     IF_ID_CUR_INS
@@ -78,6 +77,7 @@ wire [4:0] EX_MEM_IF_MEM_writebackDestination_out;
 wire [31:0] EX_MEM_aluResult_out;
 wire [31:0] EX_MEM_rt_out;
 wire [31:0] EX_MEM_pc_out;
+wire [31:0] EX_IF_pc_out;
 wire EX_MEM_branch_out;
 
 EX_Stage EX_Stage_Module(
@@ -106,7 +106,7 @@ EX_Stage EX_Stage_Module(
     EX_MEM_IF_MEM_writebackDestination_out,
     EX_MEM_aluResult_out,
     EX_MEM_rt_out,
-    EX_MEM_pc_out,
+    EX_IF_pc_out,
     EX_MEM_branch_out
 );
 // --- EX Stage --- //
