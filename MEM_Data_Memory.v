@@ -2,6 +2,7 @@ module MEM_Data_Memory(
     read_data,
     mem_write,
     mem_read,
+    load_mode,
     address,
     write_data
 );

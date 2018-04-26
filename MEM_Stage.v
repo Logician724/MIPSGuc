@@ -41,6 +41,7 @@ MEM_Data_Memory mem_ram
     (read_memory_out,
     mem_write,
     mem_read,
+    load_mode,
     address,
     write_data
     );
