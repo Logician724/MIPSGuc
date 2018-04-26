@@ -14,7 +14,8 @@ IF_Sel IF_Sel_Module(
 
 initial
     $monitor("time=%d, MUX_OPT_0=%d, MUX_OPT_1=%d, MEM_WRITE=%d, NEXT_INS_ADR=%d, CUR_INS=%d",
-    $time, MUX_OPT_0,
+    $time,
+    MUX_OPT_0,
     MUX_OPT_1,
     MEM_WRITE,
     NEXT_INS_ADR,
@@ -23,11 +24,11 @@ initial
 
 initial
 begin
-    #50 MEM_WRITE = 0;
-    #50 MUX_OPT_0 = 50;
-    #50 MUX_OPT_1 = 100;
-    #50 MEM_WRITE = 1;
-        $finish;
+    #10 MEM_WRITE = 0;
+    #10 MUX_OPT_0 = 50;
+    #10 MUX_OPT_1 = 100;
+    #10 MEM_WRITE = 1;
+    #10 $finish;
 end
 
 endmodule
