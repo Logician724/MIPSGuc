@@ -43,7 +43,6 @@ ID_Stage ID_Stage_Module(
     delay_write_register,
     delay_write_data,
     delay_in_RegWrite,
-    delay_in_load_mode,
     IF_ID_CUR_INS,
     IF_ID_NEXT_INS_ADR,
     register_input,
