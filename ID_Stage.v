@@ -2,7 +2,6 @@ module ID_Stage(input clk,
                 input [5:0] delay_write_register,
                 input [31:0] delay_write_data,
                 input delay_in_RegWrite,
-                input [1:0] delay_in_load_mode,
                 input [31:0] delay_instruction,
                 input [31:0] delay_in_new_pc_value,
                 input [31:0] register_input,
@@ -28,9 +27,7 @@ wire [2:0] ALUOpFromCtrl;
 reg [5:0] write_register;
 reg [31:0] write_data, instruction, in_new_pc_value;
 reg in_RegWrite;
-reg [1:0] in_load_mode;
 
-always @(delay_in_load_mode) #5 in_load_mode = delay_in_load_mode;
 always @(delay_in_new_pc_value) #5 in_new_pc_value = delay_in_new_pc_value;
 always @(delay_in_RegWrite) #5 in_RegWrite = delay_in_RegWrite;
 always @(delay_instruction) #5 instruction = delay_instruction;
@@ -76,8 +73,7 @@ ID_Register_File Registers(// INPUT
                            instruction, 
                            write_data, 
                            write_register, 
-                           in_RegWrite, 
-                           in_load_mode,
+                           in_RegWrite,
                            register_input, 
                            // OUTPUT
                            extendedBitsFromFile, 
