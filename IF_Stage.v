@@ -1,16 +1,36 @@
-module IF_Stage(
+module IF(
+  input CLK,                            // CLOCK
   input [31:0] MUX_OPT_0,               // MUX OPTION 0
   input [31:0] MUX_OPT_1,               // MUX OPTION 1
   input MEM_WRITE,                      // MUX CONTROL SIGNAL
   input [31:0] INST_MEM [4294967296:0], // INSTRUCTION MEMORY
-  output reg [31:0] NEXT_INST_ADR,      // PC + 4
-  output reg [31:0] CUR_INST            // CURRENT INSTRUCTION
+  output [31:0] NEXT_INS_ADR_OUT,       // NEXT INSTRUCTION ADDRESS OUTPUT
+  output [31:0] CUR_INS_OUT             // CURRENT INSTRUCTION OUTPUT
 );
 
-always @(MUX_OPT_0, MUX_OPT_1, MEM_WRITE, INST_MEM)
-#5 begin
-    NEXT_INST_ADR <= (MEM_WRITE) ? MUX_OPT_1 + 4 : MUX_OPT_0 + 4;
-    CUR_INST <= (MEM_WRITE) ? INST_MEM[MUX_OPT_1] : INST_MEM[MUX_OPT_0];
-end
+reg MUX_OPT_0_DELAYED, MUX_OPT_1_DELAYED, MEM_WRITE_DELAYED, INST_MEM_DELAYED;
+wire [31:0] NEXT_INS_ADR, CUR_INS;
+
+always @(MUX_OPT_0) #5 MUX_OPT_0_DELAYED = MUX_OPT_0
+always @(MUX_OPT_0) #5 MUX_OPT_1_DELAYED = MUX_OPT_1
+always @(MUX_OPT_0) #5 MEM_WRITE_DELAYED = MEM_WRITE
+always @(MUX_OPT_0) #5 INST_MEM_DELAYED = INST_MEM
+
+IF IF_Module(
+  MUX_OPT_0_DELAYED,
+  MUX_OPT_1_DELAYED,
+  MEM_WRITE_DELAYED,
+  INST_MEM_DELAYED,
+  NEXT_INST_ADR,
+  CUR_INST
+);
+
+IF_ID_Reg IF_ID_Reg_Module(
+  CLK,
+  NEXT_INS_ADR,
+  CUR_INS,
+  NEXT_INS_ADR_OUT,
+  CUR_INS_OUT
+);
 
 endmodule
