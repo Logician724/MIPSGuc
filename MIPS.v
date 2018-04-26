@@ -17,10 +17,6 @@ IF_Stage IF_Stage_Module(
 // --- IF Stage --- //
 
 // --- ID Stage --- //
-wire [5:0] delay_write_register;
-wire [31:0] delay_write_data;
-wire delay_in_RegWrite;
-wire [1:0] delay_in_load_mode;
 wire [31:0] register_input;
 wire [4:0] ID_EX_instr_bits_15_11;
 wire [4:0] ID_EX_instr_bits_20_16;
@@ -40,9 +36,9 @@ wire [2:0] ID_EX_ALUOp;
 
 ID_Stage ID_Stage_Module(
     CLK,
-    delay_write_register,
-    delay_write_data,
-    delay_in_RegWrite,
+    WB_ID_write_back_destination_out,
+    WB_ID_wb_out,
+    WB_ID_reg_write_out,
     IF_ID_CUR_INS,
     IF_ID_NEXT_INS_ADR,
     register_input,
@@ -139,7 +135,20 @@ MEM_Stage MEM_Stage_Module(
 // --- MEM Stage --- //
 
 // --- WB Stage --- //
+wire [31:0] WB_ID_wb_out;
+wire WB_ID_reg_write_out;
+wire [4:0] WB_ID_write_back_destination_out;
 
+WB_Stage WB_Stage_Module(
+    MEM_WB_mem_to_reg,
+    MEM_WB_reg_write_out,
+    MEM_WB_write_back_destination_out,
+    MEM_WB_address_out,
+    MEM_WB_read_data,
+    WB_ID_wb_out,
+    WB_ID_reg_write_out,
+    WB_ID_write_back_destination_out
+);
 // --- WB Stage --- //
 
 endmodule
