@@ -12,7 +12,7 @@ input [1:0] load_mode;
 input [31:0] address;
 input [31:0] write_data;
 output reg [31:0] read_data;
-reg [4294967296:0] ram [7:0];
+reg [7:0] ram  [0:4294967296];
 
 always@(mem_read,mem_write,address,write_data)begin
     if(mem_read)begin
