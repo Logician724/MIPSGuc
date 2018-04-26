@@ -1,34 +1,20 @@
 module MEM_Stage(
-     pc_src,
-     read_data,
-     mem_to_reg,
-     write_back_out,
-     address_out,
-     clk,
-     in_mem_to_reg,
-     in_address,
-     in_write_data,
-     in_mem_write,
-     in_write_back,
-     in_mem_read,
-     in_load_mode,
-     in_zero,
-     in_branch
+    input clk,
+    input in_mem_to_reg,
+    input [31:0] in_address,
+    input [31:0] in_write_data,
+    input in_mem_write,
+    input in_write_back,
+    input in_mem_read,
+    input [1:0] in_load_mode,
+    input in_zero,
+    input in_branch,
+    output pc_src,
+    output [31:0] read_data,
+    output reg mem_to_reg,
+    output write_back_out,
+    output [31:0] address_out
 );
-input clk;
-input in_mem_read;
-input in_mem_write;
-input in_write_back;
-input in_mem_to_reg;
-input in_zero;
-input in_branch;
-input [1:0] in_load_mode;
-output write_back_out;
-output pc_src;
-output [31:0] read_data, address_out;
-output reg mem_to_reg;
-input [31:0] in_address;
-input [31:0] in_write_data;
 reg mem_read, mem_write, write_back, branch, zero;
 reg [1:0] load_mode;
 reg [31:0] address, write_data;
