@@ -1,20 +1,27 @@
-module ID_Stage(input clk,
-                input [4:0] delay_write_register,
-                input [31:0] delay_write_data,
-                input delay_in_RegWrite,
-                input [31:0] delay_instruction,
-                input [31:0] delay_in_new_pc_value,
-                input [31:0] register_input,
-                output [4:0] instr_bits_15_11,
-                output [4:0] instr_bits_20_16,
-                output [31:0] extended_bits,
-                output [31:0] read_data1,
-                output [31:0] read_data2,
-                output [31:0] new_pc_value,
-                output RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, Branch,
-                output [1:0] load_mode,
-                output [2:0] ALUOp);
-
+module ID_Stage(
+    input clk,
+    input [5:0] delay_write_register,
+    input [31:0] delay_write_data,
+    input delay_in_RegWrite,
+    input [31:0] delay_instruction,
+    input [31:0] delay_in_new_pc_value,
+    input [31:0] register_input,
+    output [4:0] instr_bits_15_11,
+    output [4:0] instr_bits_20_16,
+    output [31:0] extended_bits,
+    output [31:0] read_data1,
+    output [31:0] read_data2,
+    output [31:0] new_pc_value,
+    output RegDst,
+    output RegWrite,
+    output ALUSrc,
+    output MemWrite,
+    output MemRead,
+    output MemToReg,
+    output Branch,
+    output [1:0] load_mode,
+    output [2:0] ALUOp
+);
 
 wire [31:0] extendedBitsFromFile;
 wire [31:0] read_data1_FromFile;
