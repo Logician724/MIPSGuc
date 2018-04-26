@@ -3,17 +3,16 @@ module MIPS(
 );
 
 // --- IF Stage --- //
-wire [31:0] MUX_OPT_0;
-wire [31:0] MUX_OPT_1;
-wire MEM_WRITE;
+wire [31:0] MEM_IF_BR_NEXT_INS_ADR;
+wire MEM_IF_MEM_WRITE;
 wire [31:0] IF_ID_NEXT_INS_ADR;
 wire [31:0] IF_ID_CUR_INS;
 
 IF_Stage IF_Stage_Module(
     CLK,
-    MUX_OPT_0,
-    MUX_OPT_1,
-    MEM_WRITE,
+    IF_ID_NEXT_INS_ADR,
+    MEM_IF_BR_NEXT_INS_ADR,
+    MEM_IF_MEM_WRITE,
     IF_ID_NEXT_INS_ADR,
     IF_ID_CUR_INS
 );
@@ -75,7 +74,7 @@ wire EX_MEM_MemWrite_out;
 wire EX_MEM_MemRead_out;
 wire EX_MEM_MemToReg_out;
 wire [1:0] EX_MEM_load_mode_out;
-wire [4:0] EX_MEM_writebackDestination_out;
+wire [4:0] EX_MEM_IF_MEM_writebackDestination_out;
 wire [31:0] EX_MEM_aluResult_out;
 wire [31:0] EX_MEM_rt_out;
 wire [31:0] EX_MEM_pc_out;
@@ -104,12 +103,16 @@ EX_Stage EX_Stage_Module(
     EX_MEM_MemRead_out,
     EX_MEM_MemToReg_out,
     EX_MEM_load_mode_out,
-    EX_MEM_writebackDestination_out,
+    EX_MEM_IF_MEM_writebackDestination_out,
     EX_MEM_aluResult_out,
     EX_MEM_rt_out,
     EX_MEM_pc_out,
     EX_MEM_branch_out
 );
 // --- EX Stage --- //
+
+// --- MEM Stage --- //
+
+// --- MEM Stage --- //
 
 endmodule
