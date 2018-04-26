@@ -26,7 +26,7 @@ wire [2:0] ALUOpFromCtrl;
 
 // delay variables
 reg [5:0] write_register;
-reg [31:0] write_data, instruction, in_new_pc_value, register_input;
+reg [31:0] write_data, instruction, in_new_pc_value;
 reg in_RegWrite;
 reg [1:0] in_load_mode;
 
