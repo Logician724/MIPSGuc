@@ -13,7 +13,7 @@ input [1:0] load_mode;
 input [31:0] address;
 input [31:0] write_data;
 output reg [31:0] read_data;
-reg [7:0] ram  [0:1073741824];
+reg [7:0] ram  [0:200000000]; //adjusted due to constraints by modelsim
 
 always@(mem_read,mem_write,address,write_data)begin
     if(mem_read)begin

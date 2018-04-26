@@ -6,7 +6,7 @@ module IF_Sel(
   output reg [31:0] CUR_INS             // CURRENT INSTRUCTION
 );
 
-reg [31:0] INS_MEM [0:1073741824];
+reg [31:0] INS_MEM [0:200000000]; //adjusted due to constraints by modelsim
 
 always @(MUX_OPT_0, MUX_OPT_1, MEM_WRITE)
 begin
