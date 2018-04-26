@@ -14,6 +14,7 @@ module EX_Stage(
 	input [31:0] in_read_data2,
 	input [31:0] in_new_pc_value,
 	input [1:0] in_load_mode,
+	input in_branch,
 	output zero_out,
 	output RegWrite_out,
 	output MemWrite_out,
@@ -23,11 +24,12 @@ module EX_Stage(
 	output [4:0] writebackDestination_out,
 	output [31:0] aluResult_out,
 	output [31:0] rt_out,
-	output [31:0] pc_out
+	output [31:0] pc_out,
+	output branch_out
 );
 
 // delay variables
-reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg;
+reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, branch;
 reg [1:0] load_mode;
 reg [2:0] ALUOp;
 reg [4:0] instr_bits_15_11, instr_bits_20_16;
@@ -48,7 +50,7 @@ always @(in_extended_bits) #5 extended_bits = in_extended_bits;
 always @(in_read_data1) #5 read_data1 = in_read_data1;
 always @(in_read_data2) #5 read_data2 = in_read_data2;
 always @(in_new_pc_value) #5 new_pc_value = in_new_pc_value;
-
+always @(in_branch) #5 branch = in_branch;
 // multiplexer before ALU
 reg [31:0] second_alu_input;
 always @(read_data2, extended_bits, ALUSrc)
@@ -84,8 +86,8 @@ end
 
 // pipelining register
 EX_MEM_Reg pipelining_register(clk, RegWrite, MemWrite, MemRead, MemToReg, PC, 
-	zero, aluResult, read_data2, write_back_destination, load_mode,
+	zero, aluResult, read_data2, write_back_destination, load_mode, branch,
 	RegWrite_out, MemWrite_out, MemRead_out, MemToReg_out, pc_out,
-	zero_out, aluResult_out, rt_out, writebackDestination_out, load_mode_out);
+	zero_out, aluResult_out, rt_out, writebackDestination_out, load_mode_out, branch_out);
 
 endmodule
