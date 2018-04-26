@@ -1,42 +1,27 @@
 module MEM_Stage(
-     pc_src,
-     read_data,
-     mem_to_reg,
-     reg_write_out,
-     address_out,
-     write_back_destination_out,
-     clk,
-     in_mem_to_reg,
-     in_address,
-     in_write_data,
-     in_mem_write,
-     in_reg_write,
-     in_mem_read,
-     in_load_mode,
-     in_zero,
-     in_branch,
-     in_write_back_destination
+    input clk,
+    input in_mem_to_reg,
+    input [31:0] in_address,
+    input [31:0] in_write_data,
+    input in_mem_write,
+    input in_reg_write,
+    input in_mem_read,
+    input [1:0] in_load_mode,
+    input in_zero,
+    input in_branch,
+    input [4:0] in_write_back_destination
+    output pc_src,
+    output [31:0] read_data,
+    output reg mem_to_reg,
+    output reg_write_out,
+    output [31:0] address_out,
+    output [4:0] write_back_destination_out,
 );
-input clk;
-input in_mem_read;
-input in_mem_write;
-input in_reg_write;
-input in_mem_to_reg;
-input in_zero;
-input in_branch;
-input [1:0] in_load_mode;
-input [4:0] in_write_back_destination;
-output reg_write_out;
-output pc_src;
-output [31:0] read_data, address_out;
-output reg mem_to_reg;
-input [31:0] in_address;
-input [31:0] in_write_data;
+
 reg mem_read, mem_write, reg_write, branch, zero;
 reg [1:0] load_mode;
 reg [4:0] write_back_destination;
 reg [31:0] address, write_data;
-output [4:0] write_back_destination_out;
 
 
 always@(in_write_data) #5 write_data = in_write_data ;
