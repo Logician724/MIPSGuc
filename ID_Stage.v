@@ -1,6 +1,6 @@
 module ID_Stage(
     input clk,
-    input [5:0] delay_write_register,
+    input [4:0] delay_write_register,
     input [31:0] delay_write_data,
     input delay_in_RegWrite,
     input [31:0] delay_instruction,
@@ -31,7 +31,7 @@ wire [1:0] load_modeFromCtrl;
 wire [2:0] ALUOpFromCtrl;
 
 // delay variables
-reg [5:0] write_register;
+reg [4:0] write_register;
 reg [31:0] write_data, instruction, in_new_pc_value;
 reg in_RegWrite;
 

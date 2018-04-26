@@ -18,19 +18,19 @@ end
 // incrememnt cycle counter at each positive edge
 always @(posedge CLK) cycle_counter = cycle_counter + 1;
 
+// instantiate the mips processor
+MIPS mips(CLK);
+
 // monitor the cycle counter
 initial
 begin
-$monitor("Cycle %d ", cycle_counter);
+$monitor("Cycle %d %d", cycle_counter, MIPS_testbench.mips.EX_MEM_aluResult_out);
 end
-
-// instantiate the mips processor
-MIPS mips(CLK);
 
 // stop after 1000ps
 initial
 begin
-	#1000 $stop;
+	#10000 $stop;
 end
 
 
