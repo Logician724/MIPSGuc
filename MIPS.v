@@ -139,4 +139,8 @@ MEM_Stage MEM_Stage_Module(
 );
 // --- MEM Stage --- //
 
+// --- WB Stage --- //
+
+// --- WB Stage --- //
+
 endmodule

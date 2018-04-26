@@ -1,13 +1,12 @@
 module WB_Stage(
-    wb_out,
-    in_mem_to_reg,
-    in_address,
-    in_read_data);
-input in_mem_to_reg;
-input [31:0] in_address,in_read_data;
+    input in_mem_to_reg,
+    input [31:0] in_address,
+    input [31:0] in_read_data,
+    output reg [31:0] wb_out
+);
+
 reg [31:0] address, read_data;
 reg mem_to_reg;
-output reg [31:0] wb_out;
 
 always@(in_address)  #5 address = in_address;
 always@(in_read_data) #5 read_data = in_read_data;

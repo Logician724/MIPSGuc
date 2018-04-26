@@ -9,13 +9,13 @@ module MEM_Stage(
     input [1:0] in_load_mode,
     input in_zero,
     input in_branch,
-    input [4:0] in_write_back_destination
+    input [4:0] in_write_back_destination,
     output pc_src,
     output [31:0] read_data,
     output reg mem_to_reg,
     output reg_write_out,
     output [31:0] address_out,
-    output [4:0] write_back_destination_out,
+    output [4:0] write_back_destination_out
 );
 
 reg mem_read, mem_write, reg_write, branch, zero;
