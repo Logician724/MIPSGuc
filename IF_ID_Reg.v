@@ -1,4 +1,4 @@
-module (
+module IF_ID_Reg(
     input CLK,                          // CLOCK
     input [31:0] NEXT_INS_ADR_IN,       // NEXT INSTRUCTION ADDRESS INPUT
     input [31:0] CUR_INS_IN,            // CURRENT INSTRUCTION INPUT
