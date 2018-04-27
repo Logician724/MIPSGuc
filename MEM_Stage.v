@@ -54,7 +54,7 @@ MEM_WB_Reg mem_wb_reg
     read_data,
     address_out,
     clk,
-    in_write_back_destination,
+    write_back_destination,
     reg_write,
     read_memory_out,
     address
