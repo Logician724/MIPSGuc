@@ -12,8 +12,8 @@ reg [31:0] PC; // the PC register
 
 initial
 begin
-PC = 0;
-INS_MEM[0] = 32'b001000_00000_01001_0000000000000010;
+  PC = 0;
+  INS_MEM[0] = 32'b001000_00000_01001_0000000000000010;
 end
 
 always @(posedge CLK)
