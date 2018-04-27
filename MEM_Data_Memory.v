@@ -15,24 +15,31 @@ input [31:0] write_data;
 output reg [31:0] read_data;
 reg [7:0] ram  [0:4000]; //adjusted due to constraints by modelsim
 
+integer i = 0;
+initial
+begin
+ for(i = 0; i < 4000; i = i + 1)
+	ram[i] <= 8'b0;
+end
+
 always@(mem_read,mem_write,address,write_data)begin
     if(mem_read)begin
         case(load_mode)
         2'b00: 
-            read_data = {
+            read_data <= {
             ram[address],
             ram[address + 1],
             ram[address + 2],
             ram[address + 3]
             };
         2'b01:
-            read_data = {
+            read_data <= {
             {16{ram[address][7]}},
             ram[address],
             ram[address + 1]
             };
         2'b10:
-        read_data = {
+        read_data <= {
             16'b0,
             ram[address],
             ram[address + 1]
@@ -41,13 +48,14 @@ always@(mem_read,mem_write,address,write_data)begin
         endcase
     end
         
-    if(mem_write)begin
-    {
-        ram[address],
+    if(mem_write)
+	begin
+	{
+	ram[address],
         ram[address+1],
         ram[address+2],
-        ram[address+3]} = write_data;
-    end
+        ram[address+3]} <= write_data;
+	end
 end
 
 
