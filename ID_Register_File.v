@@ -35,7 +35,7 @@ end
 
 assign read_data1 = registers[instruction[25:21]];
 assign read_data2 = registers[instruction[20:16]];
-assign extended_bits = (instruction[15] === 1)? {16'hffff , instruction[15:0]} : {16'b0 , instruction[15:0]};
+assign extended_bits = $signed(instruction[15:0]);
 
 always @(posedge clk)
 begin

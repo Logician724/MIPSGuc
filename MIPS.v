@@ -5,7 +5,7 @@ module MIPS(
 // --- IF Wires --- //
 wire IF_PCSrc;
 wire [31:0] IF_branch_address;
-wire [31:0] instruction_IF;
+wire [31:0] #(10) instruction_IF;
 wire [31:0] pc_plus_four_IF;
 // --- END IF Wires --- //
 
@@ -21,7 +21,7 @@ wire [31:0] extended_bits_ID;
 wire [31:0] read_data1_ID;
 wire [31:0] read_data2_ID;
 wire [31:0] new_pc_value_ID;
-wire RegDst_ID;
+wire #(10) RegDst_ID;
 wire RegWrite_ID;
 wire ALUSrc_ID;
 wire MemWrite_ID;
@@ -164,7 +164,7 @@ ID_EX_Reg ID_EX_Pipeline_Register(
 	EX_MemWrite,
 	EX_MemRead,
 	EX_MemToReg,
-	EX_Branch,
+	EX_branch,
 	EX_load_mode,
 	EX_ALUOp
 );

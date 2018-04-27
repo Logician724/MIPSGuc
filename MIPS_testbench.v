@@ -47,7 +47,7 @@ $monitor("Cycle %d\n", cycle_counter,
 "MemWrite=%b\n", MIPS_testbench.mips.EX_MemWrite,
 "MemRead=%b\n", MIPS_testbench.mips.EX_MemRead,
 "MemToReg=%b\n", MIPS_testbench.mips.EX_MemToReg,
-"Branch=%b\n", MIPS_testbench.mips.EX_Branch,
+"Branch=%b\n", MIPS_testbench.mips.EX_branch,
 "Load Mode=%b\n", MIPS_testbench.mips.EX_load_mode,
 "ALUOp=%b\n", MIPS_testbench.mips.EX_ALUOp,
 //--- End ID Stage Output ---//

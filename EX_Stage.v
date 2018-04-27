@@ -32,6 +32,15 @@ module EX_Stage(
 wire [31:0] second_alu_input;
 assign second_alu_input = (in_ALUSrc === 1)? in_extended_bits : in_read_data2;
 
+// passing signals on
+assign RegWrite_out = in_RegWrite;
+assign MemWrite_out = in_MemWrite;
+assign MemRead_out = in_MemRead;
+assign MemToReg_out = in_MemToReg;
+assign branch_out = in_branch;
+assign load_mode_out = in_load_mode;
+assign rt_out = in_read_data2;
+
 // ALU Control
 wire [3:0] aluControlInput;
 ALU_Control alu_control(in_ALUOp, in_extended_bits[5:0], aluControlInput);
