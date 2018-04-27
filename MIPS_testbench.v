@@ -10,11 +10,11 @@ MIPS mips(CLK);
 // get the clock working
 initial 
 begin
-	cycle_counter = 0;
-	CLK = 0;
+	cycle_counter <= 0;
+	CLK <= 0;
 	forever 
 	begin
-		#100 CLK = ~CLK;
+		#100 CLK <= ~CLK;
 	end
 end
 
@@ -25,18 +25,50 @@ always @(posedge CLK) cycle_counter = cycle_counter + 1;
 initial
 begin
 $monitor("Cycle %d\n", cycle_counter,
-//IF Stage Output
-"IF/ID Stage Register:\n",
-"PC+4=%d,", MIPS_testbench.mips.IF_ID_NEXT_INS_ADR,
+//--- IF Stage Output ---//
+"IF/ID Stage Pipeline Register:\n",
+"PC+4=%d\n", MIPS_testbench.mips.IF_ID_NEXT_INS_ADR,
 "Instruction=%b\n", MIPS_testbench.mips.IF_ID_CUR_INS,
-"ID/EX Stage Register:\n"
+//--- End of IF Stage ---//
+//--- ID Stage Output ---//
+"ID/EX Stage Pipeline Register:\n",
+"Instruction Bits [15:11] = %b\n", MIPS_testbench.mips.ID_EX_instr_bits_15_11,
+"Instruction Bits [20:16] = %b\n", MIPS_testbench.mips.ID_EX_instr_bits_20_16,
+"Extended Bits = %b\n", MIPS_testbench.mips.ID_EX_extended_bits,
+"Read Data 1 = %d\n", MIPS_testbench.mips.ID_EX_read_data1,
+"Read Data 2 = %d\n", MIPS_testbench.mips.ID_EX_read_data2,
+"PC + 4 = %d\n", MIPS_testbench.mips.ID_EX_new_pc_value,
+"RegDst = %b\n", MIPS_testbench.mips.ID_EX_RegDst,
+"RegWrite = %b\n", MIPS_testbench.mips.ID_EX_RegWrite,
+"ALUSrc = %b\n", MIPS_testbench.mips.ID_EX_ALUSrc,
+"MemWrite = %b\n", MIPS_testbench.mips.ID_EX_MemWrite,
+"MemRead = %b\n", MIPS_testbench.mips.ID_EX_MemRead,
+"MemToReg = %b\n", MIPS_testbench.mips.ID_EX_MemToReg,
+"Branch = %b\n", MIPS_testbench.mips.ID_EX_Branch,
+"Load Mode = %b\n", MIPS_testbench.mips.ID_EX_load_mode,
+"ALUOp = %b\n", MIPS_testbench.mips.ID_EX_ALUOp,
+//--- End of ID Stage ---//
+//--- EX Stage Output ---//
+"ID/EX Stage Pipeline Register:\n",
+MIPS_testbench.mips.EX_MEM_zero_out,
+"RegWrite = %b\n", MIPS_testbench.mips.EX_MEM_RegWrite_out,
+"MemWrite = %b\n", MIPS_testbench.mips.EX_MEM_MemWrite_out,
+"MemRead = %b\n", MIPS_testbench.mips.EX_MEM_MemRead_out,
+"MemToReg = %b\n", MIPS_testbench.mips.EX_MEM_MemToReg_out,
+"Load Mode = %b\n", MIPS_testbench.mips.EX_MEM_load_mode_out,
+"Writeback Destination = %b\n", MIPS_testbench.mips.EX_MEM_writebackDestination_out,
+"ALU Result = %d\n", MIPS_testbench.mips.EX_MEM_aluResult_out,
+"Write Data (RT for Memory) = %d\n", MIPS_testbench.mips.EX_MEM_rt_out,
+"PC + 4 + Offset = %d\n", MIPS_testbench.mips.EX_IF_pc_out,
+"Branch = %b\n", MIPS_testbench.mips.EX_MEM_branch_out
+//--- End of EX Stage ---//
 );
 end
 
 // stop after 1000ps
 initial
 begin
-	#10000 $stop;
+	#400 $stop;
 end
 
 
