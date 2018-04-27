@@ -30,7 +30,7 @@ module EX_Stage(
 
 // multiplexer before ALU
 wire [31:0] second_alu_input;
-assign second_alu_input = (in_ALUSrc)? in_extended_bits : in_read_data2;
+assign second_alu_input = (in_ALUSrc === 1)? in_extended_bits : in_read_data2;
 
 // ALU Control
 wire [3:0] aluControlInput;
@@ -43,6 +43,6 @@ ALU alu (in_read_data1, second_alu_input, aluControlInput, in_extended_bits[10:6
 EX_PC_Calculation pc_calculator(in_new_pc_value, in_extended_bits, pc_out);
 
 // multiplexer for write_back_destination
-assign writebackDestination_out = (in_RegDst)? in_instr_bits_15_11 : in_instr_bits_20_16;
+assign writebackDestination_out = (in_RegDst === 1)? in_instr_bits_15_11 : in_instr_bits_20_16;
 
 endmodule

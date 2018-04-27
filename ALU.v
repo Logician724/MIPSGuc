@@ -7,7 +7,7 @@ input [3:0] aluControlInput;
 output zero;
 output reg [31:0] aluResult;
 
-assign zero = (firstOperand == secondOperand);
+assign zero = (firstOperand === secondOperand);
 
 always @(firstOperand, secondOperand, aluControlInput, shamt)
 begin

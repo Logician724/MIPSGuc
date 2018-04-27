@@ -23,7 +23,7 @@ begin
 end
 
 always@(mem_read,mem_write,address,write_data)begin
-    if(mem_read)begin
+    if(mem_read === 1)begin
         case(load_mode)
         2'b00: 
             read_data <= {
@@ -48,7 +48,7 @@ always@(mem_read,mem_write,address,write_data)begin
         endcase
     end
         
-    if(mem_write)
+    if(mem_write === 1)
 	begin
 	{
 	ram[address],

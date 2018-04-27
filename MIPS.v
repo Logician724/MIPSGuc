@@ -13,6 +13,8 @@ wire [31:0] pc_plus_four_IF;
 wire [4:0] ID_write_register;
 wire [31:0] ID_write_data;
 wire ID_RegWrite;
+wire [31:0] ID_instruction;
+wire [31:0] ID_new_pc_value;
 wire [4:0] instr_bits_15_11_ID;
 wire [4:0] instr_bits_20_16_ID;
 wire [31:0] extended_bits_ID;
@@ -221,7 +223,7 @@ EX_MEM_Reg EX_MEM_Pipeline_Register(
 	IF_branch_address,
 	MEM_zero,
 	MEM_address,
-	MEM_wirte_data,
+	MEM_write_data,
 	MEM_write_back_destination,
 	MEM_load_mode,
 	MEM_branch
@@ -268,14 +270,14 @@ MEM_WB_Reg MEM_WB_Pipeline_Register(
 
 // --- WB Stage --- //
 WB_Stage WB_Stage_Module(
-    input WB_mem_to_reg,
-    input WB_reg_write,
-    input [4:0] WB_write_back_destination,
-    input [31:0] WB_address,
-    input [31:0] WB_read_data,
-    output [31:0] write_data_out,
-    output reg_write_out,
-    output [4:0] write_back_destination_out
+	WB_mem_to_reg,
+	WB_reg_write,
+	WB_write_back_destination,
+	WB_address,
+	WB_read_data,
+	ID_write_data,
+	ID_RegWrite,
+	ID_write_register
 );
 // --- END WB Stage --- //
 

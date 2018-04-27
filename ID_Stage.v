@@ -24,7 +24,7 @@ module ID_Stage(
 
 assign instr_bits_15_11_out = in_instruction[15:11];
 assign instr_bits_20_16_out = in_instruction[20:16];
-assign new_pc_value = in_new_pc_value;
+assign new_pc_value_out = in_new_pc_value;
 
 ID_Register_File Registers(// INPUT
                            clk, 
