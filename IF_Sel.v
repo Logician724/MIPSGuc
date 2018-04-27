@@ -1,4 +1,5 @@
 module IF_Sel(
+  input CLK,				// the clock
   input [31:0] MUX_OPT_0,               // MUX OPTION 0
   input [31:0] MUX_OPT_1,               // MUX OPTION 1
   input PC_SRC,                      // MUX CONTROL SIGNAL
@@ -7,17 +8,19 @@ module IF_Sel(
 );
 
 reg [31:0] INS_MEM [0:4000]; //adjusted due to constraints by modelsim
+reg [31:0] PC; // the PC register
 
 initial
 begin
+PC = 0;
 INS_MEM[0] = 32'b001000_00000_01001_0000000000000010;
-INS_MEM[1] = 32'b001000_00000_01001_0000000000000010;
 end
 
-always @(MUX_OPT_0, MUX_OPT_1, PC_SRC)
+always @(posedge CLK)
 begin
-    NEXT_INS_ADR <= (PC_SRC) ? MUX_OPT_1 + 4 : MUX_OPT_0 + 4;
-    CUR_INS <= (PC_SRC) ? INS_MEM[MUX_OPT_1] : INS_MEM[MUX_OPT_0];
+	PC <= (PC_SRC) ? MUX_OPT_1 : MUX_OPT_0;
+	NEXT_INS_ADR <= PC + 4;
+	CUR_INS <= INS_MEM[PC];
 end
 
 endmodule
