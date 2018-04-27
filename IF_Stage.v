@@ -11,6 +11,15 @@ wire [31:0] NEXT_INS_ADR, CUR_INS;
 reg [31:0] MUX_OPT_0_DELAYED, MUX_OPT_1_DELAYED;
 reg PC_SRC_DELAYED;
 
+// initialization
+initial
+begin
+MUX_OPT_0_DELAYED <= 0;
+MUX_OPT_1_DELAYED <= 0;
+PC_SRC_DELAYED <=0;
+end
+
+// stage delay
 always @(MUX_OPT_0) #5 MUX_OPT_0_DELAYED = MUX_OPT_0;
 always @(MUX_OPT_1) #5 MUX_OPT_1_DELAYED = MUX_OPT_0;
 always @(PC_SRC) #5 PC_SRC_DELAYED = PC_SRC;

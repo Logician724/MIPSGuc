@@ -12,6 +12,17 @@ module WB_Stage(
 reg [31:0] address, read_data;
 reg mem_to_reg;
 
+// initialization
+initial
+begin
+address <= 0;
+read_data <= 0;
+mem_to_reg <= 0;
+reg_write_out <= 0;
+write_back_destination_out <= 0;
+end
+
+// delay
 always@(in_address)  #5 address = in_address;
 always@(in_read_data) #5 read_data = in_read_data;
 always@(in_mem_to_reg) #5 mem_to_reg = in_mem_to_reg;

@@ -23,7 +23,22 @@ reg [1:0] load_mode;
 reg [4:0] write_back_destination;
 reg [31:0] address, write_data;
 
+// initialization
+initial
+begin
+write_data <= 0;
+address <= 0;
+mem_read <= 0;
+mem_write <= 0;
+load_mode <=0;
+reg_write <= 0;
+mem_to_reg <= 0;
+branch <= 0;
+zero <= 0;
+write_back_destination <= 0;
+end
 
+// delay
 always@(in_write_data) #5 write_data = in_write_data ;
 always@(in_address) #5  address = in_address ;
 always@(in_mem_read) #5 mem_read = in_mem_read ;
