@@ -20,9 +20,9 @@ always@(in_write_back_destination) #5 write_back_destination_out = in_write_back
 
 always@(address, read_data, mem_to_reg) begin
     if(mem_to_reg)begin
-        wb_out = in_read_data;
+        wb_out = read_data;
     end else begin
-        wb_out = in_address;
+        wb_out = address;
     end
 end
 

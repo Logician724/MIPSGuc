@@ -19,7 +19,7 @@ begin
 end
 
 // incrememnt cycle counter at each positive edge
-always @(posedge CLK) cycle_counter = cycle_counter + 1;
+always @(posedge CLK) cycle_counter <= cycle_counter + 1;
 
 // monitor the cycle counter
 initial
@@ -49,7 +49,7 @@ $monitor("Cycle %d\n", cycle_counter,
 "ALUOp = %b\n", MIPS_testbench.mips.ID_EX_ALUOp,
 //--- End of ID Stage ---//
 //--- EX Stage Output ---//
-"ID/EX Stage Pipeline Register:\n",
+"EX/MEM Stage Pipeline Register:\n",
 MIPS_testbench.mips.EX_MEM_zero_out,
 "RegWrite = %b\n", MIPS_testbench.mips.EX_MEM_RegWrite_out,
 "MemWrite = %b\n", MIPS_testbench.mips.EX_MEM_MemWrite_out,
@@ -60,8 +60,24 @@ MIPS_testbench.mips.EX_MEM_zero_out,
 "ALU Result = %d\n", MIPS_testbench.mips.EX_MEM_aluResult_out,
 "Write Data (RT for Memory) = %d\n", MIPS_testbench.mips.EX_MEM_rt_out,
 "PC + 4 + Offset = %d\n", MIPS_testbench.mips.EX_IF_pc_out,
-"Branch = %b\n", MIPS_testbench.mips.EX_MEM_branch_out
+"Branch = %b\n", MIPS_testbench.mips.EX_MEM_branch_out,
 //--- End of EX Stage ---//
+//--- MEM Stage Output ---//
+"MEM/WB Stage Pipeline Register:\n",
+"PCSrc = %b\n", MIPS_testbench.mips.MEM_IF_pc_src,
+"Read Data = %d\n", MIPS_testbench.mips.MEM_WB_read_data,
+"MemToReg = %b\n", MIPS_testbench.mips.MEM_WB_mem_to_reg,
+"RegWrite = %b\n", MIPS_testbench.mips.MEM_WB_reg_write_out,
+"ALU Result = %d\n", MIPS_testbench.mips.MEM_WB_address_out,
+"Writeback Destination = %b\n", MIPS_testbench.mips.MEM_WB_write_back_destination_out,
+//--- End of MEM Stage ---//
+//--- WB Stage Output ---//
+"WB Stage Output:\n",
+"Write Data = %b\n", MIPS_testbench.mips.WB_ID_wb_out,
+"RegWrite = %b\n", MIPS_testbench.mips.WB_ID_reg_write_out,
+"Writeback Destination = %b\n", MIPS_testbench.mips.WB_ID_write_back_destination_out,
+//--- End of WB Stage ---//
+"End of Clock Cycle %d", cycle_counter
 );
 end
 
