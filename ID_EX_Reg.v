@@ -20,21 +20,21 @@ module ID_EX_Reg(input clk,
 
 always @(posedge clk)
 begin
-  instr_bits_15_11 <= in_instr_bits_15_11;
-  instr_bits_20_16 <= in_instr_bits_20_16;
-  extended_bits <= in_extended_bits;
-  read_data1 <= in_read_data1;
-  read_data2 <= in_read_data2;
-  new_pc_value <= in_new_pc_value;
-  RegDst <= in_RegDst;
-  RegWrite <= in_RegWrite;
-  ALUSrc <= in_ALUSrc;
-  ALUOp <= in_ALUOp;
-  MemWrite <= in_MemWrite;
-  MemRead <= in_MemRead;
-  MemToReg <= in_MemToReg;
-  load_mode <= in_load_mode;
-  Branch <= in_Branch;
+  instr_bits_15_11 <= #10 in_instr_bits_15_11;
+  instr_bits_20_16 <= #10 in_instr_bits_20_16;
+  extended_bits <= #10 in_extended_bits;
+  read_data1 <= #10 in_read_data1;
+  read_data2 <= #10 in_read_data2;
+  new_pc_value <= #10 in_new_pc_value;
+  RegDst <= #10 in_RegDst;
+  RegWrite <= #10 in_RegWrite;
+  ALUSrc <= #10 in_ALUSrc;
+  ALUOp <= #10 in_ALUOp;
+  MemWrite <= #10 in_MemWrite;
+  MemRead <= #10 in_MemRead;
+  MemToReg <= #10 in_MemToReg;
+  load_mode <= #10 in_load_mode;
+  Branch <= #10 in_Branch;
 end
 
 endmodule

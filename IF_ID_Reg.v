@@ -8,8 +8,8 @@ module IF_ID_Reg(
 
 always @(posedge clk)
 begin
-	instruction_out <= in_instruction;
-	pc_plus_four_out <= in_pc_plus_four;
+	instruction_out <= #10 in_instruction;
+	pc_plus_four_out <= #10 in_pc_plus_four;
 end
 
 endmodule
