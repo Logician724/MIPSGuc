@@ -35,6 +35,25 @@ reg [2:0] ALUOp;
 reg [4:0] instr_bits_15_11, instr_bits_20_16;
 reg [31:0] extended_bits, read_data1, read_data2, new_pc_value;
 
+// initialization
+initial
+begin
+RegDst <= 0;
+MemWrite <= 0;
+MemRead <= 0;
+RegWrite <= 0;
+ALUSrc <= 0;
+MemToReg <= 0;
+load_mode <= 0;
+ALUOp <= 0;
+instr_bits_15_11 <= 0;
+instr_bits_20_16 <= 0;
+extended_bits <= 0;
+read_data1 <= 0;
+read_data2 <= 0;
+new_pc_value <= 0;
+branch <= 0;
+end
 // stage delays
 always @(in_RegDst) #5 RegDst = in_RegDst;
 always @(in_MemWrite) #5 MemWrite = in_MemWrite;
@@ -51,6 +70,7 @@ always @(in_read_data1) #5 read_data1 = in_read_data1;
 always @(in_read_data2) #5 read_data2 = in_read_data2;
 always @(in_new_pc_value) #5 new_pc_value = in_new_pc_value;
 always @(in_branch) #5 branch = in_branch;
+
 // multiplexer before ALU
 reg [31:0] second_alu_input;
 always @(read_data2, extended_bits, ALUSrc)

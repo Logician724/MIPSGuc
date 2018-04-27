@@ -14,6 +14,7 @@ initial
 begin
 PC = 0;
 INS_MEM[0] = 32'b001000_00000_01001_0000000000000010;
+INS_MEM[1] = 32'b0;
 end
 
 always @(posedge CLK)
