@@ -12,9 +12,9 @@ reg [31:0] PC; // the PC register
 
 initial
 begin
-PC = 0;
-INS_MEM[0] = 32'b001000_00000_01001_0000000000000010;
-INS_MEM[1] = 32'b0;
+PC <= 0;
+INS_MEM[0] <= 32'b001000_00000_01001_0000000000000010;
+INS_MEM[1] <= 32'b0;
 end
 
 always @(posedge CLK)
@@ -22,6 +22,7 @@ begin
 	PC <= (PC_SRC) ? MUX_OPT_1 : MUX_OPT_0;
 	NEXT_INS_ADR <= PC + 4;
 	CUR_INS <= INS_MEM[PC];
+	$display("PC: %d",PC, "Next Ins Adr: %d", NEXT_INS_ADR, "MUX_OPT_0: %d", MUX_OPT_0);
 end
 
 endmodule
