@@ -5,8 +5,8 @@ module MIPS(
 // --- IF Wires --- //
 wire IF_PCSrc;
 wire [31:0] IF_branch_address;
-wire [31:0] #(10) instruction_IF;
-wire [31:0] pc_plus_four_IF;
+wire [31:0] instruction_IF;
+wire [31:0]  pc_plus_four_IF;
 // --- END IF Wires --- //
 
 // --- ID Wires --- //
@@ -15,21 +15,21 @@ wire [31:0] ID_write_data;
 wire ID_RegWrite;
 wire [31:0] ID_instruction;
 wire [31:0] ID_new_pc_value;
-wire [4:0] instr_bits_15_11_ID;
-wire [4:0] instr_bits_20_16_ID;
-wire [31:0] extended_bits_ID;
-wire [31:0] read_data1_ID;
-wire [31:0] read_data2_ID;
-wire [31:0] new_pc_value_ID;
-wire #(10) RegDst_ID;
-wire RegWrite_ID;
-wire ALUSrc_ID;
-wire MemWrite_ID;
-wire MemRead_ID;
-wire MemToReg_ID;
-wire Branch_ID;
-wire [1:0] load_mode_ID;
-wire [2:0] ALUOp_ID;
+wire [4:0]  instr_bits_15_11_ID;
+wire [4:0]  instr_bits_20_16_ID;
+wire [31:0]  extended_bits_ID;
+wire [31:0]  read_data1_ID;
+wire [31:0]  read_data2_ID;
+wire [31:0]  new_pc_value_ID;
+wire  RegDst_ID;
+wire  RegWrite_ID;
+wire  ALUSrc_ID;
+wire  MemWrite_ID;
+wire  MemRead_ID;
+wire  MemToReg_ID;
+wire  Branch_ID;
+wire [1:0]  load_mode_ID;
+wire [2:0]  ALUOp_ID;
 // --- END ID Wires --- //
 
 // --- EX Wires --- //
@@ -48,16 +48,16 @@ wire [31:0] EX_read_data2;
 wire [31:0] EX_new_pc_value;
 wire [1:0] EX_load_mode;
 wire EX_branch;
-wire zero_EX;
-wire RegWrite_EX;
-wire MemWrite_EX;
-wire MemRead_EX;
-wire MemToReg_EX;
-wire [1:0] load_mode_EX;
-wire [4:0] writebackDestination_EX;
-wire [31:0] aluResult_EX;
-wire [31:0] rt_EX;
-wire [31:0] pc_EX;
+wire  zero_EX;
+wire  RegWrite_EX;
+wire  MemWrite_EX;
+wire  MemRead_EX;
+wire  MemToReg_EX;
+wire [1:0]  load_mode_EX;
+wire [4:0]  writebackDestination_EX;
+wire [31:0]  aluResult_EX;
+wire [31:0]  rt_EX;
+wire [31:0]  pc_EX;
 wire branch_EX;
 // --- END EX Wires --- //
 
@@ -72,11 +72,11 @@ wire [1:0] MEM_load_mode;
 wire MEM_zero;
 wire MEM_branch;
 wire [4:0] MEM_write_back_destination;
-wire [31:0] read_data_MEM;
-wire mem_to_reg_MEM;
-wire reg_write_MEM;
-wire [31:0] address_MEM;
-wire [4:0] write_back_destination_MEM;
+wire [31:0]   read_data_MEM;
+wire  mem_to_reg_MEM;
+wire  reg_write_MEM;
+wire [31:0]  address_MEM;
+wire [4:0]  write_back_destination_MEM;
 // --- END MEM Wires --- //
 
 // --- WB Wires --- //

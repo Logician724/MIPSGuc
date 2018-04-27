@@ -1,3 +1,4 @@
+`timescale 1ps/1ps
 module MIPS_testbench();
 
 // the clock
