@@ -1,164 +1,77 @@
 module MIPS(
-    input CLK
+    input clk
 );
 
-// --- IF Stage Wires --- //
-wire [31:0] IF_ID_NEXT_INS_ADR;
-wire [31:0] IF_ID_CUR_INS;
-// --- IF Stage Wires --- //
+// --- IF Wires --- //
+wire IF_PCSrc;
+wire [31:0] IF_branch_address, instruction_IF, pc_plus_four_IF;
+// --- END IF Wires --- //
 
-// --- ID Stage Wires --- //
-wire [31:0] register_input;
-wire [4:0] ID_EX_instr_bits_15_11;
-wire [4:0] ID_EX_instr_bits_20_16;
-wire [31:0] ID_EX_extended_bits;
-wire [31:0] ID_EX_read_data1;
-wire [31:0] ID_EX_read_data2;
-wire [31:0] ID_EX_new_pc_value;
-wire ID_EX_RegDst;
-wire ID_EX_RegWrite;
-wire ID_EX_ALUSrc;
-wire ID_EX_MemWrite;
-wire ID_EX_MemRead;
-wire ID_EX_MemToReg;
-wire ID_EX_Branch;
-wire [1:0] ID_EX_load_mode;
-wire [2:0] ID_EX_ALUOp;
-// --- ID Stage Wires --- //
-
-// --- EX Stage Wires --- //
-wire EX_MEM_zero_out;
-wire EX_MEM_RegWrite_out;
-wire EX_MEM_MemWrite_out;
-wire EX_MEM_MemRead_out;
-wire EX_MEM_MemToReg_out;
-wire [1:0] EX_MEM_load_mode_out;
-wire [4:0] EX_MEM_writebackDestination_out;
-wire [31:0] EX_MEM_aluResult_out;
-wire [31:0] EX_MEM_rt_out;
-wire [31:0] EX_MEM_pc_out;
-wire [31:0] EX_IF_pc_out;
-wire EX_MEM_branch_out;
-// --- EX Stage Wires --- //
-
-// --- MEM Stage Wires --- //
-wire MEM_IF_pc_src;
-wire [31:0] MEM_WB_read_data;
-wire MEM_WB_mem_to_reg;
-wire MEM_WB_reg_write_out;
-wire [31:0] MEM_WB_address_out;
-wire [4:0] MEM_WB_write_back_destination_out;
-// --- MEM Stage Wires --- //
-
-// --- WB Stage Wires --- //
-wire [31:0] WB_ID_wb_out;
-wire WB_ID_reg_write_out;
-wire [4:0] WB_ID_write_back_destination_out;
-// --- WB Stage Wires --- //
+// --- ID Wires --- //
+wire [4:0] ID_write_register;
+wire [31:0] ID_write_data;
+wire ID_RegWrite;
+wire [4:0] instr_bits_15_11_ID;
+wire [4:0] instr_bits_20_16_ID;
+wire [31:0] extended_bits_ID;
+wire [31:0] read_data1_ID;
+wire [31:0] read_data2_ID;
+wire [31:0] new_pc_value_ID;
+wire RegDst_ID;
+wire RegWrite_ID;
+wire ALUSrc_ID;
+wire MemWrite_ID;
+wire MemRead_ID;
+wire MemToReg_ID;
+wire Branch_ID;
+wire [1:0] load_mode_ID;
+wire [2:0] ALUOp_ID;
+// --- END ID Wires --- //
 
 // --- IF Stage --- //
 IF_Stage IF_Stage_Module(
-    CLK,
-    IF_ID_NEXT_INS_ADR,
-    EX_IF_pc_out,
-    MEM_IF_pc_src,
-    IF_ID_NEXT_INS_ADR,
-    IF_ID_CUR_INS
+clk,
+IF_PCSrc,
+IF_branch_address,
+instruction_IF,
+pc_plus_four_IF
 );
-// --- IF Stage --- //
+// --- END IF Stage --- //
+
+// --- IF/ID Pipeline Register --- //
+IF_ID_Reg IF_ID_Pipeline_Register(
+	clk,
+	instruction_IF,
+	pc_plus_four_IF,
+	ID_instruction,
+	ID_new_pc_value
+);
+// --- END IF/ID Pipeline Register --- //
 
 // --- ID Stage --- //
 ID_Stage ID_Stage_Module(
-    CLK,
-    WB_ID_write_back_destination_out,
-    WB_ID_wb_out,
-    WB_ID_reg_write_out,
-    IF_ID_CUR_INS,
-    IF_ID_NEXT_INS_ADR,
-    register_input,
-    ID_EX_instr_bits_15_11,
-    ID_EX_instr_bits_20_16,
-    ID_EX_extended_bits,
-    ID_EX_read_data1,
-    ID_EX_read_data2,
-    ID_EX_new_pc_value,
-    ID_EX_RegDst,
-    ID_EX_RegWrite,
-    ID_EX_ALUSrc,
-    ID_EX_MemWrite,
-    ID_EX_MemRead,
-    ID_EX_MemToReg,
-    ID_EX_Branch,
-    ID_EX_load_mode,
-    ID_EX_ALUOp
+	clk,
+	ID_write_register,
+	ID_write_data,
+	ID_RegWrite,
+	ID_instruction,
+	ID_new_pc_value,
+	instr_bits_15_11_ID,
+	instr_bits_20_16_ID,
+	extended_bits_ID,
+	read_data1_ID,
+	read_data2_ID,
+	new_pc_value_ID,
+	RegDst_ID,
+	RegWrite_ID,
+	ALUSrc_ID,
+	MemWrite_ID,
+	MemRead_ID,
+	MemToReg_ID,
+	Branch_ID,
+	load_mode_ID,
+	ALUOp_ID
 );
-// --- ID Stage --- //
-
-// --- EX Stage --- //
-EX_Stage EX_Stage_Module(
-    CLK,
-    ID_EX_RegDst,
-    ID_EX_RegWrite,
-    ID_EX_ALUSrc,
-    ID_EX_MemWrite,
-    ID_EX_MemRead,
-    ID_EX_MemToReg,
-    ID_EX_ALUOp,
-    ID_EX_instr_bits_15_11,
-    ID_EX_instr_bits_20_16,
-    ID_EX_extended_bits,
-    ID_EX_read_data1,
-    ID_EX_read_data2,
-    ID_EX_new_pc_value,
-    ID_EX_load_mode,
-    ID_EX_Branch,
-    EX_MEM_zero_out,
-    EX_MEM_RegWrite_out,
-    EX_MEM_MemWrite_out,
-    EX_MEM_MemRead_out,
-    EX_MEM_MemToReg_out,
-    EX_MEM_load_mode_out,
-    EX_MEM_writebackDestination_out,
-    EX_MEM_aluResult_out,
-    EX_MEM_rt_out,
-    EX_IF_pc_out,
-    EX_MEM_branch_out
-);
-// --- EX Stage --- //
-
-// --- MEM Stage --- //
-MEM_Stage MEM_Stage_Module(
-    CLK,
-    EX_MEM_MemToReg_out,
-    EX_MEM_aluResult_out,
-    EX_MEM_rt_out,
-    EX_MEM_MemWrite_out,
-    EX_MEM_RegWrite_out,
-    EX_MEM_MemRead_out,
-    EX_MEM_load_mode_out,
-    EX_MEM_zero_out,
-    EX_MEM_branch_out,
-    EX_MEM_writebackDestination_out,
-    MEM_IF_pc_src,
-    MEM_WB_read_data,
-    MEM_WB_mem_to_reg,
-    MEM_WB_reg_write_out,
-    MEM_WB_address_out,
-    MEM_WB_write_back_destination_out
-);
-// --- MEM Stage --- //
-
-// --- WB Stage --- //
-WB_Stage WB_Stage_Module(
-    MEM_WB_mem_to_reg,
-    MEM_WB_reg_write_out,
-    MEM_WB_write_back_destination_out,
-    MEM_WB_address_out,
-    MEM_WB_read_data,
-    WB_ID_wb_out,
-    WB_ID_reg_write_out,
-    WB_ID_write_back_destination_out
-);
-// --- WB Stage --- //
+// --- END ID Stage -- //
 
 endmodule

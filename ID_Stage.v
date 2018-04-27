@@ -5,7 +5,6 @@ module ID_Stage(
     input in_RegWrite,
     input [31:0] in_instruction,
     input [31:0] in_new_pc_value,
-    input [31:0] in_register_input,
     output [4:0] instr_bits_15_11_out,
     output [4:0] instr_bits_20_16_out,
     output [31:0] extended_bits_out,
