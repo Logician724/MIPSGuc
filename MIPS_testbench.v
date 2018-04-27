@@ -85,7 +85,8 @@ end
 // stop after 1000ps
 initial
 begin
-	#1000 $stop;
+	#1000 $display("%p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
+	#50 $stop;
 end
 
 

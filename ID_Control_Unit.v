@@ -23,7 +23,7 @@ begin
   ALUSrc <= 0;
   MemWrite <= 0;
   MemRead <= 0;
-  MemToReg <= 0;
+  MemToReg <= 1;
   load_mode <= 2'b00;
   Branch <= 0;
 
@@ -48,7 +48,7 @@ begin
           ALUSrc <= 1;
           ALUOp <= 3'b000;
           MemRead <= 1;
-          MemToReg <= 1;
+          MemToReg <= 0;
         end
     6'b100_001:
         begin
@@ -56,7 +56,7 @@ begin
           ALUSrc <= 1;
           ALUOp <= 3'b000;
           MemRead <= 1;
-          MemToReg <= 1;
+          MemToReg <= 0;
           load_mode <= 2'b01;
         end
     6'b100_101:
@@ -65,7 +65,7 @@ begin
           ALUSrc <= 1;
           ALUOp <= 3'b000;
           MemRead <= 1;
-          MemToReg <= 1;
+          MemToReg <= 0;
           load_mode <= 2'b10;
         end
     // SW
