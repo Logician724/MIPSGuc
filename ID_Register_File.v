@@ -40,6 +40,7 @@ begin
   read_data1 <= registers[instruction[25:21]];
   read_data2 <= registers[instruction[20:16]];
   extended_bits <= instruction[15] ? {16'hffff , instruction[15:0]} : {16'b0 , instruction[15:0]};
+	$display("---------------------------------%b",extended_bits);
 end
 
 always @(posedge clk)
