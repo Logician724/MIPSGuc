@@ -5,7 +5,6 @@ module ID_Register_File(// Input
                         write_data, 
                         write_register, 
                         RegWrite,
-                        registers_input,
                         // Output
                         read_data1, 
                         read_data2, 
@@ -17,12 +16,11 @@ input [31:0] instruction;
 input [31:0] write_data;
 input [4:0] write_register;
 input RegWrite;
-input [31:0] registers_input;
 
 // OUTPUT
-output reg [31:0] read_data1;
-output reg [31:0] read_data2;
-output reg [31:0] extended_bits;
+output [31:0] read_data1;
+output [31:0] read_data2;
+output [31:0] extended_bits;
 
 reg [31:0] registers [31:0];
 
@@ -35,19 +33,16 @@ begin
   registers[29] = 32'd4000;
 end
 
-always @(instruction, write_data, write_register, RegWrite, registers_input)
-begin
-  read_data1 <= registers[instruction[25:21]];
-  read_data2 <= registers[instruction[20:16]];
-  extended_bits <= instruction[15] ? {16'hffff , instruction[15:0]} : {16'b0 , instruction[15:0]};
-	$display("--------------------------------- Register File Extended bits: %b",extended_bits);
-end
+assign read_data1 = registers[instruction[25:21]];
+assign read_data2 = registers[instruction[20:16]];
+assign extended_bits = (instruction[15])? {16'hffff , instruction[15:0]} : {16'b0 , instruction[15:0]};
 
 always @(posedge clk)
 begin
-  if(RegWrite && write_register != 5'b00_000) begin
-    registers[write_register] <= write_data;
-  end
+  if(RegWrite && write_register != 5'b0)
+	begin
+		registers[write_register] <= write_data;
+	end
 end
 
 endmodule
