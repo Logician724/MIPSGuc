@@ -15,7 +15,7 @@ module ID_Register_File(// Input
 input clk;
 input [31:0] instruction;
 input [31:0] write_data;
-input [5:0] write_register;
+input [4:0] write_register;
 input RegWrite;
 input [31:0] registers_input;
 

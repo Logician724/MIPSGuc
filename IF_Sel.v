@@ -6,7 +6,13 @@ module IF_Sel(
   output reg [31:0] CUR_INS             // CURRENT INSTRUCTION
 );
 
-reg [31:0] INS_MEM [0:200000000]; //adjusted due to constraints by modelsim
+reg [31:0] INS_MEM [0:4000]; //adjusted due to constraints by modelsim
+
+initial
+begin
+INS_MEM[0] = 32'b001000_00000_01001_0000000000000010;
+INS_MEM[1] = 32'b001000_00000_01001_0000000000000010;
+end
 
 always @(MUX_OPT_0, MUX_OPT_1, PC_SRC)
 begin
