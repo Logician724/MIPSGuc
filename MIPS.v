@@ -70,13 +70,20 @@ wire [1:0] MEM_load_mode;
 wire MEM_zero;
 wire MEM_branch;
 wire [4:0] MEM_write_back_destination;
-wire pc_src_MEM;
 wire [31:0] read_data_MEM;
 wire mem_to_reg_MEM;
 wire reg_write_MEM;
 wire [31:0] address_MEM;
 wire [4:0] write_back_destination_MEM;
 // --- END MEM Wires --- //
+
+// --- WB Wires --- //
+wire WB_mem_to_reg;
+wire WB_reg_write;
+wire [4:0] WB_write_back_destination;
+wire [31:0] WB_address;
+wire [31:0] WB_read_data;
+// --- END WB Wires --- //
 
 
 // --- IF Stage --- //
@@ -195,52 +202,81 @@ EX_Stage EX_Stage_Module(
 
 // --- EX/MEM Pipeline Register --- //
 EX_MEM_Reg EX_MEM_Pipeline_Register(
-clk,
-RegWrite_EX, 
-MemWrite_EX, 
-MemRead_EX, 
-MemToReg_EX, 
-pc_EX, 
-zero_EX, 
-aluResult_EX, 
-rt_EX, 
-writebackDestination_EX,
-load_mode_EX,
-branch_EX,
-MEM_reg_write,
-MEM_mem_write,
-MEM_mem_read,
-MEM_mem_to_reg,
-IF_branch_address,
-MEM_zero,
-MEM_address,
-MEM_wirte_data,
-MEM_write_back_destination,
-MEM_load_mode,
-MEM_branch);
+	clk,
+	RegWrite_EX, 
+	MemWrite_EX, 
+	MemRead_EX, 
+	MemToReg_EX, 
+	pc_EX, 
+	zero_EX, 
+	aluResult_EX, 
+	rt_EX, 
+	writebackDestination_EX,
+	load_mode_EX,
+	branch_EX,
+	MEM_reg_write,
+	MEM_mem_write,
+	MEM_mem_read,
+	MEM_mem_to_reg,
+	IF_branch_address,
+	MEM_zero,
+	MEM_address,
+	MEM_wirte_data,
+	MEM_write_back_destination,
+	MEM_load_mode,
+	MEM_branch
+);
 // --- END EX/MEM Pipeline Register --- //
 
 // --- MEM Stage --- //
 MEM_Stage MEM_Stage_Module(
-clk,
-MEM_mem_to_reg,
-MEM_address,
-MEM_write_data,
-MEM_mem_write,
-MEM_reg_write,
-MEM_mem_read,
-MEM_load_mode,
-MEM_zero,
-MEM_branch,
-MEM_write_back_destination,
-pc_src_MEM,
-read_data_MEM,
-mem_to_reg_MEM,
-reg_write_MEM,
-address_MEM,
-write_back_destination_MEM
+	clk,
+	MEM_mem_to_reg,
+	MEM_address,
+	MEM_write_data,
+	MEM_mem_write,
+	MEM_reg_write,
+	MEM_mem_read,
+	MEM_load_mode,
+	MEM_zero,
+	MEM_branch,
+	MEM_write_back_destination,
+	IF_PCSrc,
+	read_data_MEM,
+	mem_to_reg_MEM,
+	reg_write_MEM,
+	address_MEM,
+	write_back_destination_MEM
 );
 // --- END MEM Stage --- //
 
+// --- MEM/WB Pipeline Register --- //
+MEM_WB_Reg MEM_WB_Pipeline_Register(
+	clk,
+	write_back_destination_MEM,
+	reg_write_MEM,
+	read_data_MEM,
+	address_MEM,
+	mem_to_reg_MEM,
+	WB_write_back_destination,
+	WB_reg_write,
+	WB_read_data,
+	WB_address,
+	WB_mem_to_reg
+);
+// --- END MEM/WB Pipeline Register --- //
+
+// --- WB Stage --- //
+WB_Stage WB_Stage_Module(
+    input WB_mem_to_reg,
+    input WB_reg_write,
+    input [4:0] WB_write_back_destination,
+    input [31:0] WB_address,
+    input [31:0] WB_read_data,
+    output [31:0] write_data_out,
+    output reg_write_out,
+    output [4:0] write_back_destination_out
+);
+// --- END WB Stage --- //
 
 endmodule
