@@ -32,14 +32,14 @@ initial
 begin
   for(i = 0; i < 32; i = i + 1)
     registers[i] = 32'b0;
-  registers[29] = 32'd2147483648;
+  registers[29] = 32'd4000;
 end
 
 always @(*)
 begin
   read_data1 <= registers[instruction[25:21]];
   read_data2 <= registers[instruction[20:16]];
-  extended_bits <= instruction[15] ? 16'hffff + instruction[15:0] : 16'b0 + instruction[15:0];
+  extended_bits <= instruction[15] ? {16'hffff , instruction[15:0]} : {16'b0 , instruction[15:0]};
 end
 
 always @(posedge clk)
