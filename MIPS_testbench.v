@@ -50,7 +50,7 @@ $monitor("Cycle %d\n", cycle_counter,
 //--- End of ID Stage ---//
 //--- EX Stage Output ---//
 "EX/MEM Stage Pipeline Register:\n",
-MIPS_testbench.mips.EX_MEM_zero_out,
+"Zero = %b\n", MIPS_testbench.mips.EX_MEM_zero_out,
 "RegWrite = %b\n", MIPS_testbench.mips.EX_MEM_RegWrite_out,
 "MemWrite = %b\n", MIPS_testbench.mips.EX_MEM_MemWrite_out,
 "MemRead = %b\n", MIPS_testbench.mips.EX_MEM_MemRead_out,
@@ -84,7 +84,7 @@ end
 // stop after 1000ps
 initial
 begin
-	#400 $stop;
+	#1000 $stop;
 end
 
 
