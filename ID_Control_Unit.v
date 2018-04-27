@@ -15,6 +15,7 @@ output reg RegDst, RegWrite, ALUSrc, MemWrite, MemRead, MemToReg, Branch;
 output reg [1:0] load_mode;
 output reg [2:0] ALUOp;
 
+
 always @(OP_CODE)
 begin
   // Default most common values
@@ -31,7 +32,7 @@ begin
     6'b000_000:
         begin
           RegDst <= 1;
-          ALUOp <= 100;
+          ALUOp <= 3'b100;
         end
     // ADD-Immediate
     6'b001_000:
@@ -95,6 +96,12 @@ begin
           RegDst <= 0;
           ALUSrc <= 1;
           ALUOp <= 3'b010;
+        end
+    default:
+        begin
+          RegDst <= 0;
+          RegWrite <= 0;
+          ALUOp <= 3'b000;
         end
     endcase
 end

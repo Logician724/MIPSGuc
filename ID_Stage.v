@@ -35,6 +35,15 @@ reg [4:0] write_register;
 reg [31:0] write_data, instruction, in_new_pc_value;
 reg in_RegWrite;
 
+initial
+begin
+  write_register <= 5'b0;
+  write_data <= 32'b0;
+  instruction <= 32'b0;
+  in_new_pc_value <= 32'b0;
+  in_RegWrite <= 0;
+end
+
 always @(delay_in_new_pc_value) #5 in_new_pc_value = delay_in_new_pc_value;
 always @(delay_in_RegWrite) #5 in_RegWrite = delay_in_RegWrite;
 always @(delay_instruction) #5 instruction = delay_instruction;
