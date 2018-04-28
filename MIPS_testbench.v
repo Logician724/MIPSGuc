@@ -10,18 +10,14 @@ MIPS mips(clk);
 // get the clock working
 initial 
 begin
-	//mips.IF_Stage_Module.instruction_memory[0] <= 32'b001000_00000_01001_0000000000000010; // addi $t1,$0,2
-	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[10] <= 32'd7;
-	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[11] <= 32'd32;
-	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[20] <= 255;
-	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[21] <= 255;
-	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[22] <= 255;
-	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[23] <= 255;
-	mips.IF_Stage_Module.instruction_memory[0] <= 32'b000000_01010_01011_01001_00000_100101; // lw $t1, 4($t2)
-	//mips.IF_Stage_Module.instruction_memory[2] <= 32'b001000_00000_01000_0000000000000100;
-	//mips.IF_Stage_Module.instruction_memory[3] <= 32'b000000_00000_00000_0000000000000000;
+	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[9] <= 0;
+	mips.IF_Stage_Module.instruction_memory[0] <= 32'b001000_01000_01001_0000000000000010;
+//	mips.IF_Stage_Module.instruction_memory[1] <= 32'b001000_01000_01010_0000000000000111;
+//	mips.IF_Stage_Module.instruction_memory[2] <= 32'b001000_01000_01011_0000000000001000;
+//	mips.IF_Stage_Module.instruction_memory[3] <= 32'b0;
+//	mips.IF_Stage_Module.instruction_memory[3] <= 32'b00000001001010010110000000100000;
 	cycle_counter <= 0;
-	clk <= 1;
+	clk <= 0;
 	forever 
 	begin
 		#100 clk <= ~clk;
@@ -99,7 +95,7 @@ end
 // stop after program ends
 initial
 begin
-	#1200 $display("Register File: %p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
+	#1800 $display("Register File: %p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
 	$display("Data Memory (Bytes): %p", MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram);
 	$stop;
 end
