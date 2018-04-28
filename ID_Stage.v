@@ -33,9 +33,9 @@ ID_Register_File Registers(// INPUT
                            in_write_register, 
                            in_RegWrite,
                            // OUTPUT
-                           extended_bits_out, 
                            read_data1_out, 
-                           read_data2_out );
+                           read_data2_out,
+			   extended_bits_out);
 
 
 ID_Control_Unit Control(// INPUT

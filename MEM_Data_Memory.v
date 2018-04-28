@@ -13,7 +13,7 @@ input [1:0] load_mode;
 input [31:0] address;
 input [31:0] write_data;
 output reg [31:0] read_data;
-reg [7:0] ram  [0:4000]; //adjusted due to constraints by modelsim
+reg [7:0] ram  [0:3999]; //adjusted due to constraints by modelsim
 
 integer i = 0;
 initial

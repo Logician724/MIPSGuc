@@ -20,7 +20,6 @@ begin
 				6'b000010: aluControlInput <= 4'b0100; // srl
 				6'b101010: aluControlInput <= 4'b0111; // slt
 				6'b101011: aluControlInput <= 4'b1011; // sltu
-				default: $display("ERROR: Unsupported Instruction!");
 			endcase
 		end
 	// non-R-type

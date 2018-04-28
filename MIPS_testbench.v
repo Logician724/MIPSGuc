@@ -10,7 +10,10 @@ MIPS mips(clk);
 // get the clock working
 initial 
 begin
-	// mips.IF_Stage_Module.instruction_memory[0] =
+	mips.IF_Stage_Module.instruction_memory[0] <= 32'b001000_00000_01001_0000000000000010;
+	//mips.IF_Stage_Module.instruction_memory[1] = 32'b000000_00000_01001_00001_00000_000000;
+	//mips.IF_Stage_Module.instruction_memory[2] = 32'b001000_00000_01000_0000000000000100;
+	//mips.IF_Stage_Module.instruction_memory[3] = 32'b000000_00000_00000_0000000000000000;
 	cycle_counter <= 0;
 	clk <= 1;
 	forever 
@@ -26,9 +29,11 @@ always @(posedge clk) cycle_counter <= #10 cycle_counter + 1;
 initial
 begin
 $monitor("Cycle %d\n", cycle_counter,
+//--- PC Output ---//
+"PC=%d\n", MIPS_testbench.mips.IF_Stage_Module.PC,
+//--- END PC Output ---//
 //--- IF Stage Output ---//
 "IF/ID Stage Pipeline Register:\n",
-"PC=%d\n", MIPS_testbench.mips.IF_Stage_Module.PC,
 "PC+4=%d\n", MIPS_testbench.mips.ID_new_pc_value,
 "Instruction=%b\n", MIPS_testbench.mips.ID_instruction,
 //--- End IF Stage Output ---//
@@ -76,6 +81,9 @@ $monitor("Cycle %d\n", cycle_counter,
 "MemToReg=%b\n", MIPS_testbench.mips.WB_mem_to_reg,
 //--- End MEM Stage Output ---//
 "------------------------------------------------------------\n",
+"Result After WB Stage:\n",
+"Register File: %p\n",MIPS_testbench.mips.ID_Stage_Module.Registers.registers,
+"The Data Memory will be printed once at the end of the program because of its size",
 "End of Cycle\n",
 "==============================================================\n",
 "=============================================================="
@@ -86,6 +94,7 @@ end
 initial
 begin
 	#1000 $display("Register File: %p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
+	$display("Data Memory (Bytes): %p", MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram);
 	$stop;
 end
 

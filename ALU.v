@@ -20,7 +20,7 @@ begin
 		4'b0110: aluResult <= firstOperand - secondOperand; // sub
 		4'b0111: aluResult <= firstOperand < secondOperand; // slt
 		4'b1011: aluResult <= $unsigned(firstOperand) < $unsigned(secondOperand); // sltu
-		default: $display("ERROR in ALU Select"); // undefined operation
+		default: aluResult <= 0; // undefined operation
 	endcase
 end
 
