@@ -20,7 +20,7 @@ begin
 end
 
 // incrememnt cycle counter at each positive edge
-always @(posedge clk) cycle_counter <= cycle_counter + 1;
+always @(posedge clk) cycle_counter <= #10 cycle_counter + 1;
 
 // monitor the cycle counter
 initial
@@ -85,8 +85,8 @@ end
 // stop after 1000ps
 initial
 begin
-	#1000 $display("%p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
-	#50 $stop;
+	#1000 $display("Register File: %p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
+	$stop;
 end
 
 
