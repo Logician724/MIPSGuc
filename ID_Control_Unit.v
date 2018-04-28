@@ -42,7 +42,7 @@ begin
           ALUOp <= 3'b000;
         end
     // LW, LH, LHU
-    6'b100_111:
+    6'b100_011:
         begin
           RegDst <= 0;
           ALUSrc <= 1;

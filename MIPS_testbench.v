@@ -10,10 +10,16 @@ MIPS mips(clk);
 // get the clock working
 initial 
 begin
-	mips.IF_Stage_Module.instruction_memory[0] <= 32'b001000_00000_01001_0000000000000010;
-	//mips.IF_Stage_Module.instruction_memory[1] = 32'b000000_00000_01001_00001_00000_000000;
-	//mips.IF_Stage_Module.instruction_memory[2] = 32'b001000_00000_01000_0000000000000100;
-	//mips.IF_Stage_Module.instruction_memory[3] = 32'b000000_00000_00000_0000000000000000;
+	//mips.IF_Stage_Module.instruction_memory[0] <= 32'b001000_00000_01001_0000000000000010; // addi $t1,$0,2
+	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[10] <= 32'd7;
+	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[11] <= 32'd32;
+	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[20] <= 255;
+	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[21] <= 255;
+	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[22] <= 255;
+	MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[23] <= 255;
+	mips.IF_Stage_Module.instruction_memory[0] <= 32'b000000_01010_01011_01001_00000_100101; // lw $t1, 4($t2)
+	//mips.IF_Stage_Module.instruction_memory[2] <= 32'b001000_00000_01000_0000000000000100;
+	//mips.IF_Stage_Module.instruction_memory[3] <= 32'b000000_00000_00000_0000000000000000;
 	cycle_counter <= 0;
 	clk <= 1;
 	forever 
@@ -83,17 +89,17 @@ $monitor("Cycle %d\n", cycle_counter,
 "------------------------------------------------------------\n",
 "Result After WB Stage:\n",
 "Register File: %p\n",MIPS_testbench.mips.ID_Stage_Module.Registers.registers,
-"The Data Memory will be printed once at the end of the program because of its size",
+"The Data Memory will be printed once at the end of the program because of its size\n",
 "End of Cycle\n",
 "==============================================================\n",
 "=============================================================="
 );
 end
 
-// stop after 1000ps
+// stop after program ends
 initial
 begin
-	#1000 $display("Register File: %p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
+	#1200 $display("Register File: %p",MIPS_testbench.mips.ID_Stage_Module.Registers.registers);
 	$display("Data Memory (Bytes): %p", MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram);
 	$stop;
 end
