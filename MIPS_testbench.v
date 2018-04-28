@@ -12,12 +12,12 @@ initial
 begin
 	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[9] <= 0;
 	mips.IF_Stage_Module.instruction_memory[0] <= 32'b001000_01000_01001_0000000000000010;
-//	mips.IF_Stage_Module.instruction_memory[1] <= 32'b001000_01000_01010_0000000000000111;
-//	mips.IF_Stage_Module.instruction_memory[2] <= 32'b001000_01000_01011_0000000000001000;
-//	mips.IF_Stage_Module.instruction_memory[3] <= 32'b0;
-//	mips.IF_Stage_Module.instruction_memory[3] <= 32'b00000001001010010110000000100000;
+	mips.IF_Stage_Module.instruction_memory[1] <= 32'b001000_01000_01010_0000000000000111;
+	mips.IF_Stage_Module.instruction_memory[2] <= 32'b001000_01000_01011_0000000000001000;
+	//mips.IF_Stage_Module.instruction_memory[3] <= 32'b0;
+	mips.IF_Stage_Module.instruction_memory[3] <= 32'b00000001001010010110000000100000;
 	cycle_counter <= 0;
-	clk <= 0;
+	clk <= 1;
 	forever 
 	begin
 		#100 clk <= ~clk;
@@ -25,14 +25,14 @@ begin
 end
 
 // incrememnt cycle counter at each positive edge
-always @(posedge clk) cycle_counter <= #10 cycle_counter + 1;
+always @(posedge clk) cycle_counter <= cycle_counter + 1;
 
 // monitor the cycle counter
 initial
 begin
 $monitor("Cycle %d\n", cycle_counter,
 //--- PC Output ---//
-"PC=%d\n", MIPS_testbench.mips.IF_Stage_Module.PC,
+"PC At the End of Cycle =%d\n", MIPS_testbench.mips.IF_Stage_Module.PC,
 //--- END PC Output ---//
 //--- IF Stage Output ---//
 "IF/ID Stage Pipeline Register:\n",

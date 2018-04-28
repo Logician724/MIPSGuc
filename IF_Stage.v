@@ -21,7 +21,7 @@ assign instruction_out = instruction_memory[PC/4];
 
 always @(posedge clk)
 	begin
-		PC <= #10 ((in_PCSrc === 1)? in_branch_address : pc_plus_four_out);
+		PC <= ((in_PCSrc === 1)? in_branch_address : pc_plus_four_out);
 	end
 
 endmodule

@@ -25,19 +25,19 @@ output reg branch_out);
 
 always @(posedge clk)
 begin
-	zero_out <= #10 zero_in;
-	writebackDestination_out <= #10 writebackDestination_in;
-	aluResult_out <= #10 aluResult_in;
-	rt_out <= #10 rt_in;
-	pc_out <= #10 pc_in;
+	zero_out <= zero_in;
+	writebackDestination_out <= writebackDestination_in;
+	aluResult_out <= aluResult_in;
+	rt_out <= rt_in;
+	pc_out <= pc_in;
 	
 	// control signals passed from decode stage to mem stage
-	RegWrite_out <= #10 RegWrite_in;
-	MemWrite_out <= #10 MemWrite_in;
-	MemRead_out <= #10 MemRead_in;
-	MemToReg_out <= #10 MemToReg_in;
-	load_mode_out <= #10 load_mode_in;
-	branch_out <= #10 branch_in;
+	RegWrite_out <= RegWrite_in;
+	MemWrite_out <= MemWrite_in;
+	MemRead_out <= MemRead_in;
+	MemToReg_out <= MemToReg_in;
+	load_mode_out <= load_mode_in;
+	branch_out <= branch_in;
 
 end
 
