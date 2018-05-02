@@ -925,7 +925,7 @@ MIPS mips(clk);
 initial 
 begin
 	// branch
-	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[29] <= 3999;
+	MIPS_testbench.mips.ID_Stage_Module.Registers.registers[29] <= 3996;
 	mips.IF_Stage_Module.instruction_memory[0] <= 32'h2010_001f;
     mips.IF_Stage_Module.instruction_memory[1] <= 32'h2011_ffe0;
     mips.IF_Stage_Module.instruction_memory[5] <= 32'h0211_9020;
@@ -941,7 +941,7 @@ begin
     mips.IF_Stage_Module.instruction_memory[15] <= 32'h320b_0003;
     mips.IF_Stage_Module.instruction_memory[16] <= 32'h360c_0003;
     mips.IF_Stage_Module.instruction_memory[17] <= 32'h1295_0001;
-    mips.IF_Stage_Module.instruction_memory[18] <= 32'h200d_0001;
+    mips.IF_Stage_Module.instruction_memory[19] <= 32'h200d_0001;
     mips.IF_Stage_Module.instruction_memory[19] <= 32'h0211_702a;
     mips.IF_Stage_Module.instruction_memory[20] <= 32'h0211_782b;
     mips.IF_Stage_Module.instruction_memory[21] <= 32'hafb0_0000;
@@ -991,8 +991,8 @@ begin
 	$display("t5 Expected: 00000000000000000000000000000000, Actual: %b", MIPS_testbench.mips.ID_Stage_Module.Registers.registers[13]);
 	$display("t6 Expected: 00000000000000000000000000000000, Actual: %b", MIPS_testbench.mips.ID_Stage_Module.Registers.registers[14]);
 	$display("t7 Expected: 00000000000000000000000000000001, Actual: %b", MIPS_testbench.mips.ID_Stage_Module.Registers.registers[15]);
-	for(i = 0; i < 16; i = i + 1)
-	    $display("%d: %b", i, mips.IF_Stage_Module.instruction_memory[i]);
+	for(i = 3996; i > 0; i = i - 4)
+	    $display("%d: %b%b%b%b", i, MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[i], MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[i+1], MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[i+2], MIPS_testbench.mips.MEM_Stage_Module.mem_ram.ram[i+3]);
 	$stop;
 end
 
