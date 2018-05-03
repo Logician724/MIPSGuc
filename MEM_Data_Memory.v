@@ -22,7 +22,7 @@ begin
 	ram[i] <= 8'b0;
 end
 
-always@(mem_read,mem_write,address,write_data)begin
+always@(mem_read,mem_write,address,write_data,load_mode)begin
     if(mem_read === 1)begin
         case(load_mode)
         2'b00: 
@@ -33,17 +33,15 @@ always@(mem_read,mem_write,address,write_data)begin
             ram[address + 3]
             };
         2'b01:
-            read_data <= {
-            {16{ram[address][7]}},
+            read_data <= $signed({
             ram[address],
             ram[address + 1]
-            };
+            });
         2'b10:
-        read_data <= {
-            16'b0,
+        read_data <= $unsigned({
             ram[address],
             ram[address + 1]
-            };
+            });
         default: $display("Error in MEM_Data_Memory");
         endcase
     end
